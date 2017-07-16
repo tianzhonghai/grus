@@ -45,6 +45,7 @@
         <elasticsearch.version>5.0.1</elasticsearch.version>
         <dozer.version>5.5.1</dozer.version>
         <guava.version>22.0</guava.version>
+        <grus.version>1.0.0</grus.version>
     </properties>
 
     <dependencyManagement>
@@ -176,6 +177,11 @@
                 <version>${fastjson-version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.linye</groupId>
+                <artifactId>infrastructure</artifactId>
+                <version>${grus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
