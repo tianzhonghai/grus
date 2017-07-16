@@ -28,7 +28,7 @@ public class SqlSessionFactoryConfig implements TransactionManagementConfigurer 
     @Autowired
     private DataSource dataSource;
 
-    private String typeAliasPackage = "com.tim.gaea2.domain.repository";
+    private String typeAliasPackage = "cn.linye.grus.domain.repository";
 
     /**
      *创建sqlSessionFactoryBean 实例

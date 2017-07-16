@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class Home {
+    /**
+     * 登录
+     * @return
+     */
     public String login(){
         return "login";
     }
