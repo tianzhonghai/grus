@@ -21,7 +21,7 @@
 
         <!--数据库连接信息 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/linye_portal?useSSL=false"
+                        connectionURL="jdbc:mysql://localhost:3306/portal?useSSL=false"
                         userId="root" password="111111">
             <property name="remarksReporting" value="true"/>
         </jdbcConnection>

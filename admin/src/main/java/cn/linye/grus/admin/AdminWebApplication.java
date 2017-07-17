@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan("cn.linye.grus")
-public class WebApplication {
+public class AdminWebApplication {
     public static void main(String[] args){
-        SpringApplication.run(WebApplication.class,args);
+        SpringApplication.run(AdminWebApplication.class,args);
     }
 }
