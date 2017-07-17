@@ -30,12 +30,29 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.linye</groupId>
             <artifactId>infrastructure</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.linye</groupId>
             <artifactId>facade-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.linye</groupId>
+            <artifactId>domain</artifactId>
         </dependency>
     </dependencies>
 

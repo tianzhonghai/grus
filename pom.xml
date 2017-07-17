@@ -201,6 +201,11 @@
                 <artifactId>facade-model</artifactId>
                 <version>${grus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.linye</groupId>
+                <artifactId>domain</artifactId>
+                <version>${grus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

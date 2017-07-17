@@ -5,15 +5,15 @@ package cn.linye.grus.facade.model.req;
  * @Date 2017/7/17.
  */
 public class LoginReq {
-    private String userName;
+    private String account;
     private String password;
 
-    public String getUserName() {
-        return userName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPassword() {
