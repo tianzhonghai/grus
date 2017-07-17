@@ -1,8 +1,14 @@
 package cn.linye.grus.admin.config;
 
+import cn.linye.grus.admin.shiro.CustomAuthorizingRealm;
+import cn.linye.grus.admin.shiro.CustomHashedCredentialsMatcher;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -35,8 +41,8 @@ public class ShiroConfig {
         return manager;
     }
 
-    @Bean(name="credentialsMatcher")
-    public CustomHashedCredentialsMatcher getCredentialsMatcher(){
+    @Bean(name = "credentialsMatcher")
+    public CustomHashedCredentialsMatcher getCredentialsMatcher() {
         CustomHashedCredentialsMatcher platFormCredentialsMatcher = new CustomHashedCredentialsMatcher();
         platFormCredentialsMatcher.setHashAlgorithmName("MD5");
         platFormCredentialsMatcher.setHashIterations(1);
@@ -65,14 +71,14 @@ public class ShiroConfig {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager")DefaultWebSecurityManager dwsm) {
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager") DefaultWebSecurityManager dwsm) {
         AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
         aasa.setSecurityManager(dwsm);
         return new AuthorizationAttributeSourceAdvisor();
     }
 
     @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager dwsm) {
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager dwsm) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(dwsm);
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -90,6 +96,7 @@ public class ShiroConfig {
 
     /**
      * FilterRegistrationBean
+     *
      * @return
      */
     @Bean
@@ -104,7 +111,7 @@ public class ShiroConfig {
         return filterRegistration;
     }
 
-    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean){
+    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean) {
         ///Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
         filterChainDefinitionMap.put("/css/**", "anon");
@@ -117,11 +124,4 @@ public class ShiroConfig {
     }
 
 
-    /**
-     * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
-     * @return
-     */
-    @Bean
-    public ShiroDialect shiroDialect() {
-        return new ShiroDialect();
-    }
+}

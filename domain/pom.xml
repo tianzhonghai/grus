@@ -32,6 +32,11 @@
             <type>jar</type>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>cn.linye</groupId>
+            <artifactId>infrastructure</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

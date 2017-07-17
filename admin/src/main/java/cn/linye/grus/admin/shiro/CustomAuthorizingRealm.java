@@ -1,6 +1,7 @@
 package cn.linye.grus.admin.shiro;
 
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
+import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.infrastructure.utils.SecretUtils;
@@ -47,7 +48,7 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
             Set<String> shiroPermissions = new HashSet<>();
             Set<String> roleSet = new HashSet<>();
 
-            List<PermissionEntity> permissions = permissionService.getUserPermissions(user.getId());
+            List<PermissionEntity> permissions = permissionService.getUserPermissions(user.getUserId());
             for (PermissionEntity entity : permissions) {
 //                if(! roleSet.contains(roleAndPermissionPO.getRoleId().toString())) {
 //                    roleSet.add(roleAndPermissionPO.getRoleId().toString());
@@ -66,15 +67,15 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken )token;
         String username = (String) token.getPrincipal();
-        SysUser user = userService.getUserVoByUserName(username);
+        UserEntity userEntity = userService.getUserEntityByAccount(username);
         String password = new String((char[]) token.getCredentials());
 
         // 账号不存在
-        if (user == null) {
+        if (userEntity == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
         // 密码错误
-        if (!SecretUtils.MD5(password).equals(user.getPassword())) {
+        if (!SecretUtils.MD5(password).equals(userEntity.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
 //        // 账号锁定
@@ -83,8 +84,8 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
 //        }
 
         ShiroUser shiroUser = new ShiroUser();
-        shiroUser.setId(user.getId());
-        shiroUser.setUserName(user.getUserName());
+        shiroUser.setUserId(userEntity.getUserid());
+        shiroUser.setAccount(userEntity.getAccount());
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(shiroUser, SecretUtils.MD5(password), getName());
         return info;
     }

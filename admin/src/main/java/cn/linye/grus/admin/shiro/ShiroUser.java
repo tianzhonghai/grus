@@ -4,23 +4,22 @@ package cn.linye.grus.admin.shiro;
  * Created by Tim on 2017/7/17.
  */
 public class ShiroUser {
-    private int id;
+    private int userId;
+    private String account;
 
-    private String userName;
-
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAccount(String account) {
+        this.account = account;
     }
 }
