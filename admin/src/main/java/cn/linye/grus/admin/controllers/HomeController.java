@@ -1,6 +1,6 @@
 package cn.linye.grus.admin.controllers;
 
-import cn.linye.grus.facade.model.req.LoginReq;
+import cn.linye.grus.facade.model.admin.req.LoginReq;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
