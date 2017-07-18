@@ -72,4 +72,19 @@ public class HomeController {
     public String index(){
         return "home/index";
     }
+
+    @RequestMapping("top")
+    public String top(){
+        return "home/top";
+    }
+
+    @RequestMapping("nav")
+    public String nav(){
+        return "home/nav";
+    }
+
+    @RequestMapping("main")
+    public String main(){
+        return "home/main";
+    }
 }
