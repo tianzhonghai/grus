@@ -26,13 +26,13 @@ public class HomeController {
      */
     @RequestMapping("login")
     public String login(){
-        return "login";
+        return "home/login";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(LoginReq loginReq, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
-            return "login";
+            return "home/login";
         }
 
         String account = loginReq.getAccount();
@@ -66,5 +66,10 @@ public class HomeController {
             token.clear();
             return "redirect:/login";
         }
+    }
+
+    @RequestMapping("index")
+    public String index(){
+        return "home/index";
     }
 }
