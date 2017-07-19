@@ -13,6 +13,8 @@ public class PermissionEntity {
 
     private String permissioncode;
 
+    private Integer parentpermissionid;
+
     public Integer getPermissionid() {
         return permissionid;
     }
@@ -59,5 +61,13 @@ public class PermissionEntity {
 
     public void setPermissioncode(String permissioncode) {
         this.permissioncode = permissioncode == null ? null : permissioncode.trim();
+    }
+
+    public Integer getParentpermissionid() {
+        return parentpermissionid;
+    }
+
+    public void setParentpermissionid(Integer parentpermissionid) {
+        this.parentpermissionid = parentpermissionid;
     }
 }

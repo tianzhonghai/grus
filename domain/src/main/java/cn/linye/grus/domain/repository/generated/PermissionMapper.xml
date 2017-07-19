@@ -8,6 +8,7 @@
     <result column="Url" jdbcType="VARCHAR" property="url" />
     <result column="IsMenu" jdbcType="BIT" property="ismenu" />
     <result column="PermissionCode" jdbcType="VARCHAR" property="permissioncode" />
+    <result column="ParentPermissionID" jdbcType="INTEGER" property="parentpermissionid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    PermissionID, PermissionName, Description, Url, IsMenu, PermissionCode
+    PermissionID, PermissionName, Description, Url, IsMenu, PermissionCode, ParentPermissionID
   </sql>
   <select id="selectByExample" parameterType="cn.linye.grus.domain.entity.generated.PermissionEntityExample" resultMap="BaseResultMap">
     select
@@ -105,9 +106,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sys_permission (PermissionName, Description, Url, 
-      IsMenu, PermissionCode)
+      IsMenu, PermissionCode, ParentPermissionID
+      )
     values (#{permissionname,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{ismenu,jdbcType=BIT}, #{permissioncode,jdbcType=VARCHAR})
+      #{ismenu,jdbcType=BIT}, #{permissioncode,jdbcType=VARCHAR}, #{parentpermissionid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.linye.grus.domain.entity.generated.PermissionEntity">
     <selectKey keyProperty="permissionid" order="AFTER" resultType="java.lang.Integer">
@@ -130,6 +133,9 @@
       <if test="permissioncode != null">
         PermissionCode,
       </if>
+      <if test="parentpermissionid != null">
+        ParentPermissionID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="permissionname != null">
@@ -146,6 +152,9 @@
       </if>
       <if test="permissioncode != null">
         #{permissioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentpermissionid != null">
+        #{parentpermissionid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="record.permissioncode != null">
         PermissionCode = #{record.permissioncode,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentpermissionid != null">
+        ParentPermissionID = #{record.parentpermissionid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +200,8 @@
       Description = #{record.description,jdbcType=VARCHAR},
       Url = #{record.url,jdbcType=VARCHAR},
       IsMenu = #{record.ismenu,jdbcType=BIT},
-      PermissionCode = #{record.permissioncode,jdbcType=VARCHAR}
+      PermissionCode = #{record.permissioncode,jdbcType=VARCHAR},
+      ParentPermissionID = #{record.parentpermissionid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +224,9 @@
       <if test="permissioncode != null">
         PermissionCode = #{permissioncode,jdbcType=VARCHAR},
       </if>
+      <if test="parentpermissionid != null">
+        ParentPermissionID = #{parentpermissionid,jdbcType=INTEGER},
+      </if>
     </set>
     where PermissionID = #{permissionid,jdbcType=INTEGER}
   </update>
@@ -220,7 +236,8 @@
       Description = #{description,jdbcType=VARCHAR},
       Url = #{url,jdbcType=VARCHAR},
       IsMenu = #{ismenu,jdbcType=BIT},
-      PermissionCode = #{permissioncode,jdbcType=VARCHAR}
+      PermissionCode = #{permissioncode,jdbcType=VARCHAR},
+      ParentPermissionID = #{parentpermissionid,jdbcType=INTEGER}
     where PermissionID = #{permissionid,jdbcType=INTEGER}
   </update>
 </mapper>

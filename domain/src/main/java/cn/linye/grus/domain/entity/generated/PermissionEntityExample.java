@@ -503,6 +503,66 @@ public class PermissionEntityExample {
             addCriterion("PermissionCode not between", value1, value2, "permissioncode");
             return (Criteria) this;
         }
+
+        public Criteria andParentpermissionidIsNull() {
+            addCriterion("ParentPermissionID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidIsNotNull() {
+            addCriterion("ParentPermissionID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidEqualTo(Integer value) {
+            addCriterion("ParentPermissionID =", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidNotEqualTo(Integer value) {
+            addCriterion("ParentPermissionID <>", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidGreaterThan(Integer value) {
+            addCriterion("ParentPermissionID >", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ParentPermissionID >=", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidLessThan(Integer value) {
+            addCriterion("ParentPermissionID <", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidLessThanOrEqualTo(Integer value) {
+            addCriterion("ParentPermissionID <=", value, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidIn(List<Integer> values) {
+            addCriterion("ParentPermissionID in", values, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidNotIn(List<Integer> values) {
+            addCriterion("ParentPermissionID not in", values, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidBetween(Integer value1, Integer value2) {
+            addCriterion("ParentPermissionID between", value1, value2, "parentpermissionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentpermissionidNotBetween(Integer value1, Integer value2) {
+            addCriterion("ParentPermissionID not between", value1, value2, "parentpermissionid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
