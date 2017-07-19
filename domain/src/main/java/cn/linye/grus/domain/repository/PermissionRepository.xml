@@ -12,7 +12,7 @@
         PermissionID, PermissionName, Description, Url, IsMenu
     </sql>
     <select id="getUserPermissions" parameterType="int" resultMap="BaseResultMap">
-        SELECT C.* FROM `sys_role_permission` A JOIN `sys_user_role` B
+        SELECT C.* FROM `sys_rolepermission` A JOIN `sys_userrole` B
         ON A.`RoleID` = B.`RoleID`
         JOIN `sys_permission` C ON A.`PermissionID` = C.`PermissionID`
         WHERE B.`UserID` = #{uesrId,jdbcType=INTEGER}

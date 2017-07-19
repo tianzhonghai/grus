@@ -8,7 +8,6 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li class="header">MENU</li>
-                    <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
                     <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
                     <li class="treeview">
@@ -24,8 +23,27 @@
                         </ul>
                     </li>
                 </ul>
-                <!-- /.sidebar-menu -->
             </section>
     </div>
+    <th:block layout:fragment="scripts">
+        <script type="text/javascript">
+            /*<![CDATA[*/
+            $(function(){
+                $.get("/home/getUserPermissions",{},function(result){
+                    if(result.status == 200){
+                        //所有顶级目录
+                        var allTopMenus = new Array();
+
+                        for(var i = 0 ; i <= 0; i ++) {
+
+                            var str = '<li class="active"><a href="'+result.data[i].url+'"><i class="fa fa-link"></i> <span>'+ result.data[i].permissionname +'</span></a></li>';
+                            $('.sidebar-menu').append(str)
+                        }
+                    }
+                })
+            })
+            /*]]>*/
+        </script>
+    </th:block>
 </body>
 </html>

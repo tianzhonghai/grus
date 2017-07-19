@@ -433,6 +433,76 @@ public class PermissionEntityExample {
             addCriterion("IsMenu not between", value1, value2, "ismenu");
             return (Criteria) this;
         }
+
+        public Criteria andPermissioncodeIsNull() {
+            addCriterion("PermissionCode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeIsNotNull() {
+            addCriterion("PermissionCode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeEqualTo(String value) {
+            addCriterion("PermissionCode =", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeNotEqualTo(String value) {
+            addCriterion("PermissionCode <>", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeGreaterThan(String value) {
+            addCriterion("PermissionCode >", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeGreaterThanOrEqualTo(String value) {
+            addCriterion("PermissionCode >=", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeLessThan(String value) {
+            addCriterion("PermissionCode <", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeLessThanOrEqualTo(String value) {
+            addCriterion("PermissionCode <=", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeLike(String value) {
+            addCriterion("PermissionCode like", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeNotLike(String value) {
+            addCriterion("PermissionCode not like", value, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeIn(List<String> values) {
+            addCriterion("PermissionCode in", values, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeNotIn(List<String> values) {
+            addCriterion("PermissionCode not in", values, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeBetween(String value1, String value2) {
+            addCriterion("PermissionCode between", value1, value2, "permissioncode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissioncodeNotBetween(String value1, String value2) {
+            addCriterion("PermissionCode not between", value1, value2, "permissioncode");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

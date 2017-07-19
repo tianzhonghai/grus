@@ -1,16 +1,14 @@
-package cn.linye.grus.domain.entity.generated;
+package cn.linye.grus.facade.model.admin.resp;
 
-public class PermissionEntity {
+/**
+ * @Author tianzhonghai
+ * @Date 2017/7/19.
+ */
+public class GetUserPermissionsResp {
     private Integer permissionid;
-
     private String permissionname;
-
-    private String description;
-
     private String url;
-
     private Boolean ismenu;
-
     private String permissioncode;
 
     public Integer getPermissionid() {
@@ -26,15 +24,7 @@ public class PermissionEntity {
     }
 
     public void setPermissionname(String permissionname) {
-        this.permissionname = permissionname == null ? null : permissionname.trim();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.permissionname = permissionname;
     }
 
     public String getUrl() {
@@ -42,7 +32,7 @@ public class PermissionEntity {
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 
     public Boolean getIsmenu() {
@@ -58,6 +48,6 @@ public class PermissionEntity {
     }
 
     public void setPermissioncode(String permissioncode) {
-        this.permissioncode = permissioncode == null ? null : permissioncode.trim();
+        this.permissioncode = permissioncode;
     }
 }
