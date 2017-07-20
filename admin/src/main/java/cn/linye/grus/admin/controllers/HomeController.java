@@ -116,6 +116,7 @@ public class HomeController {
                 resp.setIsmenu(entity.getIsmenu());
                 resp.setPermissioncode(entity.getPermissioncode());
                 resp.setPermissionname(entity.getPermissionname());
+                resp.setParentPermissionId(entity.getParentpermissionid());
                 resp.setUrl(entity.getUrl());
                 list.add(resp);
             }

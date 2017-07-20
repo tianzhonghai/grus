@@ -24,6 +24,7 @@
                     </li>
                 </ul>
             </section>
+        <script type="text/javascript" src="/js/jslinq/jslinq.js"></script>
     </div>
     <th:block layout:fragment="scripts">
         <script type="text/javascript">
@@ -31,10 +32,13 @@
             $(function(){
                 $.get("/home/getUserPermissions",{},function(result){
                     if(result.status == 200){
-                        //所有顶级目录
-                        var allTopMenus = new Array();
 
-                        for(var i = 0 ; i <= 0; i ++) {
+                        var allTopMenus = result.data.asLinq().where(function(){return this.parentpermissionid==0}).toArray();
+
+                        for(var i = 0 ; i <= allTopMenus.length; i ++) {
+                            if(result.data[i].parentpermissionid == 0){
+
+                            }
 
                             var str = '<li class="active"><a href="'+result.data[i].url+'"><i class="fa fa-link"></i> <span>'+ result.data[i].permissionname +'</span></a></li>';
                             $('.sidebar-menu').append(str)

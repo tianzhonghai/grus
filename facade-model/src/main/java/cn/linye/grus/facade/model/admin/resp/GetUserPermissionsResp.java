@@ -10,6 +10,7 @@ public class GetUserPermissionsResp {
     private String url;
     private Boolean ismenu;
     private String permissioncode;
+    private Integer parentPermissionId;
 
     public Integer getPermissionid() {
         return permissionid;
@@ -49,5 +50,13 @@ public class GetUserPermissionsResp {
 
     public void setPermissioncode(String permissioncode) {
         this.permissioncode = permissioncode;
+    }
+
+    public Integer getParentPermissionId() {
+        return parentPermissionId;
+    }
+
+    public void setParentPermissionId(Integer parentPermissionId) {
+        this.parentPermissionId = parentPermissionId;
     }
 }
