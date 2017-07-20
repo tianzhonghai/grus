@@ -1,8 +1,14 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 系统管理
@@ -19,8 +25,20 @@ public class SystemController {
 
     @RequestMapping("/queryusers")
     @ResponseBody
-    public String queryUsers(){
-        return "";
+    public PagedCollectionResp<QueryUsersResp> queryUsers(){
+        List<QueryUsersResp> list = new ArrayList<>();
+        for(int i = 0;i< 10 ;i ++){
+            QueryUsersResp queryUsersResp = new QueryUsersResp();
+            queryUsersResp.setAccount(Integer.toString(i));
+            queryUsersResp.setUserid(i);
+            queryUsersResp.setCreatedtime(new Date());
+            list.add(queryUsersResp);
+        }
+
+        PagedCollectionResp<QueryUsersResp> respPagedCollectionResp = new PagedCollectionResp<>();
+        respPagedCollectionResp.setRecordsTotal(0);
+        respPagedCollectionResp.setData(list);
+        return respPagedCollectionResp;
     }
 
     @RequestMapping("/role")

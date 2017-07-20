@@ -5,7 +5,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
-    <link rel="stylesheet" type="text/css" href="   //cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
     <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.15/api/fnReloadAjax.js"></script>
     <div class="container-fluid">
@@ -52,7 +52,6 @@
                                 <th>ID</th>
                                 <th>姓名</th>
                                 <th>创建时间</th>
-                                <th>描述</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -66,24 +65,23 @@
     </div>
 </div>
 
-<th:block layout:fragment="script">
+<th:block layout:fragment="scripts">
 
     <script type="text/javascript">
         var tableSetting = {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url":"/system/user/queryusers",
-                "type": "post",
+                "url":"/system/queryusers",
+                "type": "get",
                 "data": function(d){
                     d.userName = $('#userName').val();
                 }
             },
             "columns": [
-                { "data": "id" ,"bSortable": false },
-                { "data": "userName" },
-                { "data": "createTime" },
-                { "data": "state" }
+                { "data": "userid" ,"bSortable": false },
+                { "data": "account" },
+                { "data": "createdtime" }
             ]
         };
 
