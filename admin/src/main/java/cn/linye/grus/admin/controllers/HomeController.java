@@ -109,8 +109,8 @@ public class HomeController {
 
         List<PermissionEntity> entities = permissionService.getUserPermissions(shiroUser.getUserId());
         if(entities != null) {
-
             for (PermissionEntity entity : entities) {
+                if(! entity.getIsmenu())continue;
                 GetUserPermissionsResp resp = new GetUserPermissionsResp();
                 resp.setPermissionid(entity.getPermissionid());
                 resp.setIsmenu(entity.getIsmenu());

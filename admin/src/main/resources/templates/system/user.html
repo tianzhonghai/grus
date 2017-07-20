@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="shared/_layoutMain">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="shared/_layoutMain">
 <head>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
+    <link rel="stylesheet" type="text/css" href="   //cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.15/api/fnReloadAjax.js"></script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        Basic panel example
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-1 control-label">用户ID</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="id" id="id" />
+                                </div>
+                                <label class="col-lg-1 control-label">用户名</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="userName" id="userName" />
+                                </div>
+                                <label class="col-lg-1 control-label">说明</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="state" id="state" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-3">
+                                    <button type="button" id="btnQuery" class="btn btn-success">查询</button>
+                                </div>
+                                <div class="col-lg-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">查询结果</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" id="tbUserList">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>创建时间</th>
+                                <th>描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -18,5 +66,34 @@
     </div>
 </div>
 
+<th:block layout:fragment="script">
+
+    <script type="text/javascript">
+        var tableSetting = {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url":"/system/user/queryusers",
+                "type": "post",
+                "data": function(d){
+                    d.userName = $('#userName').val();
+                }
+            },
+            "columns": [
+                { "data": "id" ,"bSortable": false },
+                { "data": "userName" },
+                { "data": "createTime" },
+                { "data": "state" }
+            ]
+        };
+
+        var table = $('#tbUserList').DataTable(tableSetting);
+
+        $('#btnQuery').click(function(){
+            table.ajax.reload();
+        })
+    </script>
+
+</th:block>
 </body>
 </html>
