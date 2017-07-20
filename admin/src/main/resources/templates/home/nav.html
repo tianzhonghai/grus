@@ -8,20 +8,7 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li class="header">MENU</li>
-                    <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                    <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-link"></i> <span>Multilevel</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Link in level 2</a></li>
-                            <li><a href="#">Link in level 2</a></li>
-                        </ul>
-                    </li>
+
                 </ul>
             </section>
         <script type="text/javascript" src="/js/jslinq/jslinq.js"></script>
@@ -33,19 +20,38 @@
                 $.get("/home/getUserPermissions",{},function(result){
                     if(result.status == 200){
 
-                        var allTopMenus = result.data.asLinq().where(function(){return this.parentpermissionid==0}).toArray();
-
-                        for(var i = 0 ; i <= allTopMenus.length; i ++) {
-                            if(result.data[i].parentpermissionid == 0){
-
+                        var allTopMenus = result.data.asLinq().where(function(){return this.parentPermissionId==0}).toArray();
+                        var str = '';
+                        for(var i = 0 ; i < allTopMenus.length; i ++) {
+                             str = '<li class="treeview">'
+                                    +'<a href="#">'
+                                    +'<i class="fa fa-link"></i> <span>'+allTopMenus[i].permissionname+'</span>'
+                                    +'<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>'
+                                    +'</a>'
+                                    ;
+                            var allSubMenus = result.data.asLinq().where(function(){return this.parentPermissionId==allTopMenus[i].permissionid }).toArray();
+                            str += '<ul class="treeview-menu">';
+                            for (var j = 0; j < allSubMenus.length ; j++){
+                                str += '<li><a href="'+allSubMenus[j].url+'" target="main">'+allSubMenus[j].permissionname+'</a></li>';
                             }
+                            str += '</ul>';
 
-                            var str = '<li class="active"><a href="'+result.data[i].url+'"><i class="fa fa-link"></i> <span>'+ result.data[i].permissionname +'</span></a></li>';
-                            $('.sidebar-menu').append(str)
                         }
+                        $('.sidebar-menu').append(str)
+
+                        doSlide();
                     }
-                })
+                });
+
             })
+
+            function doSlide(){
+                $('.treeview').children('a').click(function(){
+                    $('.treeview').removeClass('active');
+
+                    $(this).parent('li').addClass('active');
+                })
+            }
             /*]]>*/
         </script>
     </th:block>
