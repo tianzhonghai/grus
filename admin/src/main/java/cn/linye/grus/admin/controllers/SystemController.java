@@ -37,7 +37,17 @@ public class SystemController {
         PagedCollectionResp<UserEntity> result = userService.queryUserList("");
 
         PagedCollectionResp<QueryUsersResp> respPagedCollectionResp = new PagedCollectionResp<>();
-        respPagedCollectionResp.setRecordsTotal(0);
+        respPagedCollectionResp.setRecordsTotal(result.getRecordsTotal());
+        if(result.getData() != null){
+            List<UserEntity> userEntities = result.getData();
+            for (UserEntity entity : userEntities) {
+                QueryUsersResp item = new QueryUsersResp();
+                item.setUserid(entity.getUserid());
+                item.setAccount(entity.getAccount());
+                item.setCreatedtime(entity.getCreatedtime());
+                list.add(item);
+            }
+        }
         respPagedCollectionResp.setData(list);
         return respPagedCollectionResp;
     }
