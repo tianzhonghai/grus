@@ -30,6 +30,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public PagedCollectionResp<UserEntity> queryUserList(String account) {
-        return null;
+        UserEntityExample userEntityExample = new UserEntityExample();
+        userEntityExample.createCriteria().andAccountLike(account);
+
+        List<UserEntity> userEntities = userMapper.selectByExample(userEntityExample);
+        long count = userMapper.countByExample(userEntityExample);
+
+        PagedCollectionResp<UserEntity> result = new PagedCollectionResp<>();
+        result.setData(userEntities);
+        result.setRecordsTotal((int)count);
+        return result;
     }
 }

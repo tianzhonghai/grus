@@ -1,7 +1,10 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.domain.entity.generated.UserEntity;
+import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.PagedCollectionResp;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +21,9 @@ import java.util.List;
 @RequestMapping("/system")
 public class SystemController {
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/user")
     public String user(){
         return "system/user";
@@ -27,13 +33,8 @@ public class SystemController {
     @ResponseBody
     public PagedCollectionResp<QueryUsersResp> queryUsers(){
         List<QueryUsersResp> list = new ArrayList<>();
-        for(int i = 0;i< 10 ;i ++){
-            QueryUsersResp queryUsersResp = new QueryUsersResp();
-            queryUsersResp.setAccount(Integer.toString(i));
-            queryUsersResp.setUserid(i);
-            queryUsersResp.setCreatedtime(new Date());
-            list.add(queryUsersResp);
-        }
+
+        PagedCollectionResp<UserEntity> result = userService.queryUserList("");
 
         PagedCollectionResp<QueryUsersResp> respPagedCollectionResp = new PagedCollectionResp<>();
         respPagedCollectionResp.setRecordsTotal(0);
