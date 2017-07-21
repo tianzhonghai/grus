@@ -34,7 +34,7 @@ public class SystemController {
     public PagedCollectionResp<QueryUsersResp> queryUsers(){
         List<QueryUsersResp> list = new ArrayList<>();
 
-        PagedCollectionResp<UserEntity> result = userService.queryUserList("");
+        PagedCollectionResp<UserEntity> result = userService.queryUserList("admin");
 
         PagedCollectionResp<QueryUsersResp> respPagedCollectionResp = new PagedCollectionResp<>();
         respPagedCollectionResp.setRecordsTotal(result.getRecordsTotal());
