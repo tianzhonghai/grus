@@ -3,6 +3,7 @@ package cn.linye.grus.domain.service;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;
 import cn.linye.grus.domain.repository.generated.UserMapper;
+import cn.linye.grus.facade.model.PagedCollectionResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,10 @@ public class UserServiceImpl implements UserService {
         if(entities != null && entities.size() > 0){
             return entities.get(0);
         }
+        return null;
+    }
+
+    public PagedCollectionResp<UserEntity> queryUserList(String account) {
         return null;
     }
 }

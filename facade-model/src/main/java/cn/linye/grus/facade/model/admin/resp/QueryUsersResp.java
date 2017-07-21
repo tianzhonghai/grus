@@ -1,5 +1,7 @@
 package cn.linye.grus.facade.model.admin.resp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,7 @@ public class QueryUsersResp {
 
     private String account;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdtime;
 
     public Integer getUserid() {

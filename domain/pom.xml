@@ -37,6 +37,11 @@
             <groupId>cn.linye</groupId>
             <artifactId>infrastructure</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.linye</groupId>
+            <artifactId>facade-model</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
