@@ -1,0 +1,15 @@
+
+.btn {
+    border-radius:0;
+}
+
+.panel {
+    border-radius:0;
+    margin-bottom:10px;
+}
+.panel-body{
+    padding: 10px;
+}
+.form-control {
+    border-radius:0;
+}

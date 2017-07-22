@@ -8,6 +8,7 @@ import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -31,9 +32,10 @@ public class SystemController {
 
     @RequestMapping("/queryusers")
     @ResponseBody
-    public PagedCollectionResp<QueryUsersResp> queryUsers(){
+    public PagedCollectionResp<QueryUsersResp> queryUsers(@RequestParam(name = "account")String  account, @RequestParam(name="userName")String userName){
         QueryUsersReq queryUserReq = new QueryUsersReq();
-        queryUserReq.setAccount("admin");
+        queryUserReq.setAccount(account);
+        queryUserReq.setUsername(userName);
         PagedCollectionResp<QueryUsersResp> result = userService.queryUserList(queryUserReq);
         return result;
     }
