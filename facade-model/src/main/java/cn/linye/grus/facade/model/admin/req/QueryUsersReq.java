@@ -6,7 +6,7 @@ import java.util.Date;
  * 查询用户
  * Created by Tim on 2017/7/22.
  */
-public class QueryUserReq {
+public class QueryUsersReq {
     private Integer userid;
     private String account;
     private String username;

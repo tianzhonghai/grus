@@ -6,12 +6,15 @@ import cn.linye.grus.domain.entity.generated.UserEntityExample;
 import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
 import cn.linye.grus.facade.model.PagedCollectionResp;
-import cn.linye.grus.facade.model.admin.req.QueryUserReq;
+import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
+import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
+import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.dozer.Mapper;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+//    @Autowired
+//    private DozerBeanMapperFactoryBean dozerBean;
+
+
+
     public UserEntity getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
         userPOExample.createCriteria().andAccountEqualTo(account);
@@ -37,21 +45,32 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public PagedCollectionResp<UserEntity> queryUserList(QueryUserReq queryUserReq) {
+    public PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {
 
         List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(null, "admin");
+        int count = userRepository.countUserWithProfileEntities(null,"admin");
 
-        UserEntityExample userEntityExample = new UserEntityExample();
-        userEntityExample.createCriteria().andAccountLike(queryUserReq.getAccount());
-
-        List<UserEntity> userEntities = userMapper.selectByExample(userEntityExample);
-        long count = userMapper.countByExample(userEntityExample);
-
-        PagedCollectionResp<UserEntity> result = new PagedCollectionResp<>();
-        result.setData(userEntities);
-        result.setRecordsTotal((int)count);
+        PagedCollectionResp<QueryUsersResp> result = new PagedCollectionResp<>();
+        List<QueryUsersResp> list = new ArrayList<>();
+        for (UserWithProfileEntity item :
+                userWithProfileEntities) {
+            //org.dozer.Mapper mapper = getMapper();
+            QueryUsersResp q = DozerUtils.getDozerMapper().map(item,QueryUsersResp.class);
+            list.add(q);
+        }
+        result.setData(list);
+        result.setRecordsTotal(count);
         return result;
     }
 
 
+//    private Mapper getMapper() {
+//        Mapper mapper = null;
+//        try {
+//            mapper = dozerBean.getObject();
+//        }catch (Exception ex){
+//            throw new RuntimeException("获取dozerMapper异常",ex);
+//        }
+//        return mapper;
+//    }
 }

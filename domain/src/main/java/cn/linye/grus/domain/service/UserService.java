@@ -2,7 +2,8 @@ package cn.linye.grus.domain.service;
 
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.facade.model.PagedCollectionResp;
-import cn.linye.grus.facade.model.admin.req.QueryUserReq;
+import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
+import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 
 /**
  * 用户服务
@@ -11,5 +12,5 @@ import cn.linye.grus.facade.model.admin.req.QueryUserReq;
 public interface UserService {
     UserEntity getUserEntityByAccount(String account);
 
-    PagedCollectionResp<UserEntity> queryUserList(QueryUserReq queryUserReq);
+    PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq);
 }

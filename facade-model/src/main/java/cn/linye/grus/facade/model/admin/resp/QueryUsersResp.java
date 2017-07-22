@@ -13,7 +13,9 @@ public class QueryUsersResp {
     private String account;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date createdtime;
+    private Date birthday;
+
+    private String username;
 
     public Integer getUserid() {
         return userid;
@@ -31,11 +33,19 @@ public class QueryUsersResp {
         this.account = account == null ? null : account.trim();
     }
 
-    public Date getCreatedtime() {
-        return createdtime;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setCreatedtime(Date createdtime) {
-        this.createdtime = createdtime;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

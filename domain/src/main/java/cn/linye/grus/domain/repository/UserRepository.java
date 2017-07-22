@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface UserRepository {
     List<UserWithProfileEntity> queryUserWithProfileEntities(@Param("userId") Integer userId, @Param("userName") String userName);
+
+    int countUserWithProfileEntities(@Param("userId") Integer userId, @Param("userName") String userName);
 }

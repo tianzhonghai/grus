@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Tim on 2017/7/22.
  */
 @Configuration
-@ComponentScan(basePackages={"cn.liny.grus"})
+@ComponentScan(basePackages={"cn.linye.grus"})
 public class DozerMappingConfig {
     @Bean(name = "org.dozer.Mapper")
     public DozerBeanMapper dozerBean() {
