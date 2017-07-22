@@ -43,30 +43,10 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="sys_user" domainObjectName="UserEntity" mapperName="UserMapper">
+        <table tableName="sys_userprofile" domainObjectName="UserProfileEntity" mapperName="UserProfileMapper">
             <property name="beginningDelimiter" value="`"/>
             <property name="endingDelimiter" value="`"/>
-            <generatedKey column="UserID" sqlStatement="MySql" identity="true"></generatedKey>
-        </table>
-        <table tableName="sys_role" domainObjectName="RoleEntity" mapperName="RoleMapper">
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
-            <generatedKey column="RoleID" sqlStatement="MySql" identity="true"></generatedKey>
-        </table>
-        <table tableName="sys_userrole" domainObjectName="UserRoleEntity" mapperName="UserRoleMapper">
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"></generatedKey>
-        </table>
-        <table tableName="sys_permission" domainObjectName="PermissionEntity" mapperName="PermissionMapper">
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
-            <generatedKey column="PermissionID" sqlStatement="MySql" identity="true"></generatedKey>
-        </table>
-        <table tableName="sys_rolepermission" domainObjectName="RolePermissionEntity" mapperName="RolePermissionMapper">
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"></generatedKey>
+            <generatedKey column="UserID" sqlStatement="MySql" identity="false"></generatedKey>
         </table>
     </context>
 </generatorConfiguration>

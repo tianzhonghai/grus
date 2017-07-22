@@ -3,6 +3,7 @@ package cn.linye.grus.admin.controllers;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.QueryUserReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,9 @@ public class SystemController {
     public PagedCollectionResp<QueryUsersResp> queryUsers(){
         List<QueryUsersResp> list = new ArrayList<>();
 
-        PagedCollectionResp<UserEntity> result = userService.queryUserList("admin");
+        QueryUserReq queryUserReq = new QueryUserReq();
+        queryUserReq.setAccount("admin");
+        PagedCollectionResp<UserEntity> result = userService.queryUserList(queryUserReq);
 
         PagedCollectionResp<QueryUsersResp> respPagedCollectionResp = new PagedCollectionResp<>();
         respPagedCollectionResp.setRecordsTotal(result.getRecordsTotal());

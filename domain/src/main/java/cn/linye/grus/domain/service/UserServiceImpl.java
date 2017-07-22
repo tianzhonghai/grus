@@ -1,9 +1,14 @@
 package cn.linye.grus.domain.service;
 
+import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;
+import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.QueryUserReq;
+import org.dozer.Mapper;
+import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public UserEntity getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
         userPOExample.createCriteria().andAccountEqualTo(account);
@@ -29,9 +37,12 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public PagedCollectionResp<UserEntity> queryUserList(String account) {
+    public PagedCollectionResp<UserEntity> queryUserList(QueryUserReq queryUserReq) {
+
+        List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(null, "admin");
+
         UserEntityExample userEntityExample = new UserEntityExample();
-        userEntityExample.createCriteria().andAccountLike(account);
+        userEntityExample.createCriteria().andAccountLike(queryUserReq.getAccount());
 
         List<UserEntity> userEntities = userMapper.selectByExample(userEntityExample);
         long count = userMapper.countByExample(userEntityExample);
@@ -41,4 +52,6 @@ public class UserServiceImpl implements UserService {
         result.setRecordsTotal((int)count);
         return result;
     }
+
+
 }
