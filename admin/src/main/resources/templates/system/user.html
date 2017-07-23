@@ -45,6 +45,8 @@
                                 <th>账号</th>
                                 <th>姓名</th>
                                 <th>生日</th>
+                                <th>是否锁定</th>
+                                <th>是否启用</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -95,6 +97,8 @@
                 { "data": "account" },
                 { "data": "username" },
                 { "data": "birthday" },
+                { "data": "locked" },
+                { "data": "enabled" },
                 { "data":"userid", "render":  function ( data, type, row ) {
                     var html = "";
                     var flag = ! row.locked;
@@ -103,10 +107,11 @@
                     }else {
                         html += '<a href="javascript:void(0)" onclick="doLock('+data+','+flag+')">锁定</a>';
                     }
+                    var flag2 = ! row.enabled;
                     if(row.enabled){
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+(! row.enabled)+')">禁用</a>';
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+flag2+')">禁用</a>';
                     }else{
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">启用</a>';}
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+flag2+')">启用</a>';}
                     return html;
                 }}
             ]
