@@ -78,10 +78,10 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
         if (!SecretUtils.MD5(password).equals(userEntity.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
-//        // 账号锁定
-//        if (user.getLocked() == 1) {
-//            throw new LockedAccountException("账号已被锁定,请联系管理员");
-//        }
+        // 账号锁定
+        if (userEntity.getLocked()) {
+            throw new LockedAccountException("账号已被锁定,请联系管理员");
+        }
 
         ShiroUser shiroUser = new ShiroUser();
         shiroUser.setUserId(userEntity.getUserid());

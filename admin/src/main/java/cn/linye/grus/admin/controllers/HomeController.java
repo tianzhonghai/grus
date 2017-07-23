@@ -82,8 +82,9 @@ public class HomeController {
             return "redirect:/index";
         }else{
             token.clear();
-            return "redirect:/login";
+            return "redirect:/login?msg=用户名或密码错误";
         }
+
     }
 
     @RequestMapping("index")

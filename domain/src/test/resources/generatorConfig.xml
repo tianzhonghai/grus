@@ -43,7 +43,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="sys_userprofile" domainObjectName="UserProfileEntity" mapperName="UserProfileMapper">
+        <table tableName="sys_user" domainObjectName="UserEntity" mapperName="UserMapper">
             <property name="beginningDelimiter" value="`"/>
             <property name="endingDelimiter" value="`"/>
             <generatedKey column="UserID" sqlStatement="MySql" identity="false"></generatedKey>

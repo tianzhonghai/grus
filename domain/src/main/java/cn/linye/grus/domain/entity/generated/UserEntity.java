@@ -11,6 +11,10 @@ public class UserEntity {
 
     private Date createdtime;
 
+    private Boolean locked;
+
+    private Boolean enabled;
+
     public Integer getUserid() {
         return userid;
     }
@@ -41,5 +45,21 @@ public class UserEntity {
 
     public void setCreatedtime(Date createdtime) {
         this.createdtime = createdtime;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
