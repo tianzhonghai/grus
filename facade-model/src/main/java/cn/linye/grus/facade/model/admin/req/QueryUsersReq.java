@@ -1,24 +1,17 @@
 package cn.linye.grus.facade.model.admin.req;
 
+import cn.linye.grus.facade.model.BasePagedReq;
+
 import java.util.Date;
 
 /**
  * 查询用户
  * Created by Tim on 2017/7/22.
  */
-public class QueryUsersReq {
-    private Integer userid;
+public class QueryUsersReq extends BasePagedReq {
     private String account;
     private String username;
-    private Date birthday;
 
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
 
     public String getAccount() {
         return account;
@@ -36,11 +29,4 @@ public class QueryUsersReq {
         this.username = username;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
 }

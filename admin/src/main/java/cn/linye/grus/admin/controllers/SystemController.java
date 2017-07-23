@@ -32,11 +32,11 @@ public class SystemController {
 
     @RequestMapping("/queryusers")
     @ResponseBody
-    public PagedCollectionResp<QueryUsersResp> queryUsers(@RequestParam(name = "account")String  account, @RequestParam(name="userName")String userName){
-        QueryUsersReq queryUserReq = new QueryUsersReq();
-        queryUserReq.setAccount(account);
-        queryUserReq.setUsername(userName);
-        PagedCollectionResp<QueryUsersResp> result = userService.queryUserList(queryUserReq);
+    public PagedCollectionResp<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
+//        QueryUsersReq queryUserReq = new QueryUsersReq();
+//        queryUserReq.setAccount(account);
+//        queryUserReq.setUsername(userName);
+        PagedCollectionResp<QueryUsersResp> result = userService.queryUserList(QueryUsersReq);
         return result;
     }
 
