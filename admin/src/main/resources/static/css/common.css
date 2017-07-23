@@ -13,3 +13,12 @@
 .form-control {
     border-radius:0;
 }
+
+table.dataTable thead th, table.dataTable thead td
+{
+    border-bottom: 0;
+}
+table.dataTable.no-footer
+{
+    border-bottom:1px solid #ddd;
+}
