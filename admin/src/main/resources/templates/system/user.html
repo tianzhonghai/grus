@@ -96,7 +96,17 @@
                 { "data": "username" },
                 { "data": "birthday" },
                 { "data":"userid", "render":  function ( data, type, row ) {
-                    return '<a href="' + data + '">权限</a>';
+                    var html = "";
+                    if(row.locked){
+                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+row.locked+')">解锁</a>';
+                    }else {
+                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+row.locked+')">锁定</a>';
+                    }
+                    if(row.enabled){
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">禁用</a>';
+                    }else{
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">禁用</a>';}
+                    return html;
                 }}
             ]
         };

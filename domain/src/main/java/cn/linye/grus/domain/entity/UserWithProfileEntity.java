@@ -18,6 +18,10 @@ public class UserWithProfileEntity {
 
     private Date birthday;
 
+    private boolean locked;
+
+    private boolean enabled;
+
     public Integer getUserid() {
         return userid;
     }
@@ -64,5 +68,21 @@ public class UserWithProfileEntity {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

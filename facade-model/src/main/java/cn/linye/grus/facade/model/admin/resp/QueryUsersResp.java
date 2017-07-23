@@ -17,6 +17,10 @@ public class QueryUsersResp {
 
     private String username;
 
+    private boolean locked;
+
+    private boolean enabled;
+
     public Integer getUserid() {
         return userid;
     }
@@ -47,5 +51,21 @@ public class QueryUsersResp {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
