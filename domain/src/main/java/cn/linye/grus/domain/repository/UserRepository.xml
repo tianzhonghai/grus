@@ -33,4 +33,18 @@
             AND B.UserName LIKE CONCAT('%','${userName}','%' )
         </if>
     </select>
+    <update id="updateUserLocked">
+        update sys_user
+        <set>
+            Locked = #{locked,jdbcType=BIT},
+        </set>
+        where UserID = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateUserEnabled">
+        update sys_user
+        <set>
+            `Enabled` = #{enabled,jdbcType=BIT},
+        </set>
+        where UserID = #{userId,jdbcType=INTEGER}
+    </update>
 </mapper>

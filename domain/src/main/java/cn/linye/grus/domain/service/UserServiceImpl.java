@@ -29,11 +29,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private DozerBeanMapperFactoryBean dozerBean;
-
-
-
     public UserEntity getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
         userPOExample.createCriteria().andAccountEqualTo(account);
@@ -63,14 +58,13 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public void lockUser(int userId, boolean locked) {
+        userRepository.updateUserLocked(userId,locked);
+    }
 
-//    private Mapper getMapper() {
-//        Mapper mapper = null;
-//        try {
-//            mapper = dozerBean.getObject();
-//        }catch (Exception ex){
-//            throw new RuntimeException("获取dozerMapper异常",ex);
-//        }
-//        return mapper;
-//    }
+    public void enableUser(int userId, boolean enabled) {
+        userRepository.updateUserEnabled(userId,enabled);
+    }
+
+
 }

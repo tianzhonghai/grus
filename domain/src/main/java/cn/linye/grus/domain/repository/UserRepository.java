@@ -12,4 +12,8 @@ public interface UserRepository {
     List<UserWithProfileEntity> queryUserWithProfileEntities(@Param("account")String  account, @Param("userName") String userName, @Param("start")int start,@Param("limit") int limit);
 
     int countUserWithProfileEntities(@Param("account") String account, @Param("userName") String userName);
+
+    int updateUserLocked(@Param("userId") int userId, @Param("locked") boolean locked);
+
+    int updateUserEnabled(@Param("userId") int userId, @Param("enabled") boolean enabled);
 }

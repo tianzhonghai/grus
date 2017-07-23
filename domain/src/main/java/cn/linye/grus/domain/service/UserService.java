@@ -13,4 +13,8 @@ public interface UserService {
     UserEntity getUserEntityByAccount(String account);
 
     PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq);
+
+    void lockUser(int userId,boolean locked);
+
+    void enableUser(int userId,boolean enabled);
 }

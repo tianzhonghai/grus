@@ -97,15 +97,16 @@
                 { "data": "birthday" },
                 { "data":"userid", "render":  function ( data, type, row ) {
                     var html = "";
+                    var flag = ! row.locked;
                     if(row.locked){
-                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+row.locked+')">解锁</a>';
+                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+flag+')">解锁</a>';
                     }else {
-                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+row.locked+')">锁定</a>';
+                        html += '<a href="javascript:void(0)" onclick="doLock('+data+','+flag+')">锁定</a>';
                     }
                     if(row.enabled){
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">禁用</a>';
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+(! row.enabled)+')">禁用</a>';
                     }else{
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">禁用</a>';}
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+row.enabled+')">启用</a>';}
                     return html;
                 }}
             ]
@@ -116,6 +117,17 @@
         $('#btnQuery').click(function(){
             table.ajax.reload();
         })
+
+        function doLock(userId,locked){
+            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
+                table.ajax.reload();
+            })
+        }
+        function doEnable(userId,enabled){
+            $.post('/system/enableuser',{"userid": userId, "enabled": enabled },function(){
+                table.ajax.reload();
+            })
+        }
     </script>
 
 </th:block>
