@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Tim on 2017/7/16.
@@ -48,9 +49,14 @@ public class HomeController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String login(LoginReq loginReq, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    @ResponseBody
+    public GeneralResp<String> login(LoginReq loginReq, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        GeneralResp<String> resp = new GeneralResp<>();
         if(bindingResult.hasErrors()){
-            return "home/login";
+            //return "home/login";
+            resp.setStatus(500);
+            resp.setMessage("绑定错误，请联系管理员");
+            return resp;
         }
 
         String account = loginReq.getAccount();
@@ -79,12 +85,20 @@ public class HomeController {
         //验证是否登录成功
         if(currentUser.isAuthenticated()){
             SecurityUtils.getSubject().getSession().setTimeout(3600000L);
-            return "redirect:/index";
+            //return "redirect:/index";
+            resp.setStatus(200);
+            resp.setMessage("登录成功");
+            return resp;
         }else{
             token.clear();
-            return "redirect:/login?msg=用户名或密码错误";
-        }
+            //return "redirect:/login?msg=用户名或密码错误";
 
+            Map<String,?> maps = redirectAttributes.getFlashAttributes();
+            Object obj = maps.get("message");
+            resp.setStatus(500);
+            resp.setMessage(obj.toString());
+            return resp;
+        }
     }
 
     @RequestMapping("index")
