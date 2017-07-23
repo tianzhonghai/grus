@@ -45,6 +45,7 @@
                                 <th>账号</th>
                                 <th>姓名</th>
                                 <th>生日</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -93,7 +94,10 @@
                 { "data": "userid" ,"bSortable": false },
                 { "data": "account" },
                 { "data": "username" },
-                { "data": "birthday" }
+                { "data": "birthday" },
+                { "data":"userid", "render":  function ( data, type, row ) {
+                    return data ;
+                }}
             ]
         };
 
