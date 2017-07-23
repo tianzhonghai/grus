@@ -29,7 +29,7 @@ public class SystemController {
 
     @RequestMapping("/user")
     public String user(){
-        return "system/user";
+        return "system/userlist";
     }
 
     @RequestMapping("/queryusers")
@@ -55,6 +55,11 @@ public class SystemController {
         GeneralResp<String> resp = new GeneralResp<>();
         userService.enableUser(userId,enabled);
         return resp;
+    }
+
+    @RequestMapping("/adduser")
+    public String addUser(){
+        return "system/useradd";
     }
     @RequestMapping("/role")
     public String role() {

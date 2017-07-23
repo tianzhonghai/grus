@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="shared/_layoutForm">
+<head>
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div layout:fragment="content">
+
+    <div class="container-fluid" style="margin-top:10px">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-1 control-label">账号</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="account" id="account" />
+                                </div>
+                                <label class="col-lg-1 control-label">姓名</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="username" id="username" />
+                                </div>
+                                <div class="col-lg-1 control-label"></div>
+                                <div class="col-lg-3">
+                                    <button type="button" id="btnQuery" class="btn btn-primary">查询</button>
+                                    <button type="button" id="btnNew" class="btn btn-success">新增用户</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+
+    <script type="text/javascript">
+
+    </script>
+
+</th:block>
+</body>
+</html>
