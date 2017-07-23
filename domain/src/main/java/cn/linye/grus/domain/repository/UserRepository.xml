@@ -21,6 +21,7 @@
         <if test="userName != null">
             AND B.UserName LIKE CONCAT('%','${userName}','%' )
         </if>
+        LIMIT #{start},#{limit}
     </select>
     <select id="countUserWithProfileEntities" resultType="java.lang.Integer">
         select count(*) from `sys_user` A JOIN `sys_userprofile` B
