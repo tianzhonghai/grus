@@ -9,6 +9,7 @@ import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,16 @@ public class SystemController {
         }
 
         return  generalResp;
+    }
+
+    @RequestMapping("/checkaccount")
+    public GeneralResp<String> checkAccount(@RequestParam("account")String account){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        if(StringUtils.isBlank(account)){
+            BizException.throwIllegalArgument("账号不能为空");
+        }
+
+        return generalResp;
     }
 
     @RequestMapping("/role")

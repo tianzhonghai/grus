@@ -45,4 +45,12 @@ public class BizException extends RuntimeException {
     public static void throwBizException(RespEnum errorCode,String message){
         throwBizException(errorCode,message,null);
     }
+
+    public static void throwIllegalArgument(String message){
+        throwBizException(RespEnum.ILLEGAL_ARGUMENT,message);
+    }
+
+    public static void throwFail(String message){
+        throwBizException(RespEnum.FAIL,message);
+    }
 }

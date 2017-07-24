@@ -43,6 +43,12 @@
 
     <script type="text/javascript">
         $('#btnSave').click(function(){
+
+            if($('#account').val() == ''){
+                alert('用户账号不能为空');
+                return false;
+            }
+
             var parms = $('form').serializeArray();
 
             $.post("/system/adduser",parms,function(data){
