@@ -112,7 +112,11 @@
                     if(row.enabled){
                         html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+flag2+')">禁用</a>';
                     }else{
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+flag2+')">启用</a>';}
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEnable('+data+','+flag2+')">启用</a>';
+                    }
+
+                    html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doEdit('+data+')">修改</a>';
+
                     return html;
                 }}
             ]
@@ -138,6 +142,10 @@
         $('#btnNew').click(function(){
 
         })
+
+        function doEdit(userId){
+
+        }
     </script>
 
 </th:block>

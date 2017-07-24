@@ -61,8 +61,14 @@ public class SystemController {
     public String addUser(){
         return "system/useradd";
     }
+
     @RequestMapping("/role")
     public String role() {
-        return "system/role";
+        return "system/rolelist";
+    }
+
+    @RequestMapping("/addrole")
+    public String addRole(){
+        return "system/roleadd";
     }
 }
