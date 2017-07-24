@@ -11,8 +11,6 @@ import java.util.Date;
 public class AddUserReq extends BaseReq {
     private Integer userid;
     private String account;
-    private String password;
-    private Date createdtime;
     private Boolean locked;
     private Boolean enabled;
     private String username;
@@ -42,24 +40,6 @@ public class AddUserReq extends BaseReq {
 
     public AddUserReq setAccount(String account) {
         this.account = account;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public AddUserReq setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public Date getCreatedtime() {
-        return createdtime;
-    }
-
-    public AddUserReq setCreatedtime(Date createdtime) {
-        this.createdtime = createdtime;
         return this;
     }
 
