@@ -29,7 +29,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
-
     @Autowired
     private UserService userService;
 
@@ -71,7 +70,6 @@ public class SystemController {
     public String addUser(){
         return "system/useradd";
     }
-
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     @ResponseBody
