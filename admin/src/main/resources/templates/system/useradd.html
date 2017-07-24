@@ -47,6 +47,10 @@
                 alert('用户账号不能为空');
                 return false;
             }
+
+            if(! isValidAccount) {
+                alert("账号已存在");return false;
+            }
             var parms = $('form').serializeArray();
             $.post("/system/adduser",parms,function(data){
                 if(data.status == 200){
@@ -57,6 +61,19 @@
                     alert(data.message);
                 }
             });
+        })
+
+        var isValidAccount = false;
+        $('#account').change(function(){
+            var txt = $(this).val();
+            var rnd = new Date().getTime();
+            $.get('/system/checkaccount',{"account":txt,"rnd":rnd },function(data){
+                if(data.status == 200){
+                    isValidAccount = true;
+                }else {
+                    alert(data.message);
+                }
+            })
         })
     </script>
 

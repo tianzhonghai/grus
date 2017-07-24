@@ -87,12 +87,21 @@ public class SystemController {
     }
 
     @RequestMapping("/checkaccount")
+    @ResponseBody
     public GeneralResp<String> checkAccount(@RequestParam("account")String account){
         GeneralResp<String> generalResp = new GeneralResp<>();
         if(StringUtils.isBlank(account)){
             BizException.throwIllegalArgument("账号不能为空");
         }
 
+        UserEntity userEntity = userService.getUserEntityByAccount(account);
+        if(userEntity != null){
+            generalResp.setStatus(RespEnum.FAIL.getValue());
+            generalResp.setMessage(account + "已存在");
+            return generalResp;
+        }
+
+        generalResp.setStatus(RespEnum.SUCCESS.getValue());
         return generalResp;
     }
 
