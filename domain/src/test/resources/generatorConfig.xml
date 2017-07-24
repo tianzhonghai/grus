@@ -46,7 +46,7 @@
         <table tableName="sys_user" domainObjectName="UserEntity" mapperName="UserMapper">
             <property name="beginningDelimiter" value="`"/>
             <property name="endingDelimiter" value="`"/>
-            <generatedKey column="UserID" sqlStatement="MySql" identity="false"></generatedKey>
+            <generatedKey column="UserID" sqlStatement="MySql" identity="true"></generatedKey>
         </table>
     </context>
 </generatorConfiguration>

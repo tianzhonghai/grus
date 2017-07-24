@@ -11,13 +11,15 @@ import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +33,13 @@ public class SystemController {
     @Autowired
     private UserService userService;
 
+    @InitBinder
+    protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
     @RequestMapping("/user")
     public String user(){
         return "system/userlist";
@@ -39,9 +48,6 @@ public class SystemController {
     @RequestMapping("/queryusers")
     @ResponseBody
     public PagedCollectionResp<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
-//        QueryUsersReq queryUserReq = new QueryUsersReq();
-//        queryUserReq.setAccount(account);
-//        queryUserReq.setUsername(userName);
         PagedCollectionResp<QueryUsersResp> result = userService.queryUserList(QueryUsersReq);
         return result;
     }
@@ -68,15 +74,15 @@ public class SystemController {
 
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    @ResponseBody
     public GeneralResp<String> addUser(AddUserReq addUserReq){
         GeneralResp<String> generalResp = new GeneralResp<>();
-
         try {
             userService.addUser(addUserReq);
+            generalResp.setStatus(RespEnum.SUCCESS.getValue());
         }catch (Exception ex){
             BizException.throwBizException(RespEnum.FAIL,ex.getMessage(),ex);
         }
-
         return  generalResp;
     }
 

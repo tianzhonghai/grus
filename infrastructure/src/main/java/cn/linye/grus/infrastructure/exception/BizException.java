@@ -46,11 +46,17 @@ public class BizException extends RuntimeException {
         throwBizException(errorCode,message,null);
     }
 
+    public static void throwIllegalArgument(String message, Throwable cause){
+        throwBizException(RespEnum.ILLEGAL_ARGUMENT,message,cause);
+    }
     public static void throwIllegalArgument(String message){
-        throwBizException(RespEnum.ILLEGAL_ARGUMENT,message);
+        throwBizException(RespEnum.ILLEGAL_ARGUMENT,message,null);
     }
 
+    public static void throwFail(String message, Throwable cause){
+        throwBizException(RespEnum.FAIL,message,cause);
+    }
     public static void throwFail(String message){
-        throwBizException(RespEnum.FAIL,message);
+        throwBizException(RespEnum.FAIL,message,null);
     }
 }

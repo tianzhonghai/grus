@@ -43,23 +43,19 @@
 
     <script type="text/javascript">
         $('#btnSave').click(function(){
-
             if($('#account').val() == ''){
                 alert('用户账号不能为空');
                 return false;
             }
-
             var parms = $('form').serializeArray();
-
             $.post("/system/adduser",parms,function(data){
                 if(data.status == 200){
                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                     parent.layer.close(index); //再执行关闭
-
+                    parent.refershGrid();
                 }else {
                     alert(data.message);
                 }
-
             });
         })
     </script>

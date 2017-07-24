@@ -6,6 +6,7 @@ package cn.linye.grus.facade.model;
 public class BasePagedReq {
     private int start;
     private int length;
+    private int draw;
 
     public int getStart() {
         return start;
@@ -21,5 +22,13 @@ public class BasePagedReq {
 
     public void setLength(int length) {
         this.length = length;
+    }
+
+    public int getDraw() {
+        return draw;
+    }
+
+    public void setDraw(int draw) {
+        this.draw = draw;
     }
 }

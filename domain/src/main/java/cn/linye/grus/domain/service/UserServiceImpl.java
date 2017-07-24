@@ -11,7 +11,9 @@ import cn.linye.grus.facade.model.PagedCollectionResp;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
+import cn.linye.grus.infrastructure.exception.BizException;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
+import cn.linye.grus.infrastructure.utils.SecretUtils;
 import cn.linye.grus.infrastructure.utils.SpringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
         userPOExample.createCriteria().andAccountEqualTo(account);
         List<UserEntity> entities = userMapper.selectByExample(userPOExample);
 
-        if(entities != null && entities.size() > 0){
+        if (entities != null && entities.size() > 0) {
             return entities.get(0);
         }
         return null;
@@ -52,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     public PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {
 
-        List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername(),queryUserReq.getStart(),queryUserReq.getLength());
+        List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername(), queryUserReq.getStart(), queryUserReq.getLength());
         int count = userRepository.countUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername());
 
         PagedCollectionResp<QueryUsersResp> result = new PagedCollectionResp<>();
@@ -60,41 +63,49 @@ public class UserServiceImpl implements UserService {
         for (UserWithProfileEntity item :
                 userWithProfileEntities) {
             //org.dozer.Mapper mapper = getMapper();
-            QueryUsersResp q = DozerUtils.getDozerMapper().map(item,QueryUsersResp.class);
+            QueryUsersResp q = DozerUtils.getDozerMapper().map(item, QueryUsersResp.class);
             list.add(q);
         }
+        result.setDraw(queryUserReq.getDraw());
+        result.setRecordsFiltered(count);
         result.setData(list);
         result.setRecordsTotal(count);
         return result;
     }
 
     public void lockUser(int userId, boolean locked) {
-        userRepository.updateUserLocked(userId,locked);
+        userRepository.updateUserLocked(userId, locked);
     }
 
     public void enableUser(int userId, boolean enabled) {
-        userRepository.updateUserEnabled(userId,enabled);
+        userRepository.updateUserEnabled(userId, enabled);
     }
 
     public void addUser(AddUserReq req) {
-
         SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
-
         SqlSessionFactory sqlSessionFactory = null;
         try {
             sqlSessionFactory = sqlSessionFactoryBean.getObject();
-        }catch (Exception ex){}
-
+        } catch (Exception ex) {
+            BizException.throwFail(ex.getMessage(),ex);
+        }
+        UserEntity userEntity = DozerUtils.getDozerMapper().map(req, UserEntity.class);
+        userEntity.setCreatedtime(new Date());
+        userEntity.setLocked(false);
+        userEntity.setEnabled(true);
+        userEntity.setPassword(SecretUtils.MD5("111111"));
+        UserProfileEntity userProfileEntity = DozerUtils.getDozerMapper().map(req, UserProfileEntity.class);
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
-
-        UserEntity userEntity = DozerUtils.getDozerMapper().map(req,UserEntity.class);
-        userMapper.insert(userEntity);
-
-        UserProfileEntity userProfileEntity = DozerUtils.getDozerMapper().map(req, UserProfileEntity.class);
-        userProfileMapper.insert(userProfileEntity);
-
-        sqlSession.commit();
+        try {
+            int userId = userMapper.insert(userEntity);
+            userProfileEntity.setUserid(userId);
+            userProfileMapper.insert(userProfileEntity);
+            sqlSession.commit();
+        } catch (Exception ex) {
+            sqlSession.rollback();
+            BizException.throwFail(ex.getMessage(),ex);
+        }
     }
 
 
