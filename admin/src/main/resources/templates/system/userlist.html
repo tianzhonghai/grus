@@ -140,11 +140,21 @@
         }
 
         $('#btnNew').click(function(){
-
+            layer.open({
+                type: 2,
+                area: ['800px', '500px'],
+                shadeClose: false, //点击遮罩关闭
+                content: '/system/adduser'
+            });
         })
 
         function doEdit(userId){
-
+            layer.open({
+                type: 2,
+                area: ['800px', '500px'],
+                shadeClose: false, //点击遮罩关闭
+                content: '/system/edituser?userid'+userId
+            });
         }
     </script>
 

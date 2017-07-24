@@ -7,7 +7,7 @@ public class ErrorInfo<T> {
     public static final Integer OK = 200;
     public static final Integer ERROR = 500;
 
-    private Integer code;
+    private Integer status;
     private String message;
     private String url;
     private T data;
@@ -28,12 +28,12 @@ public class ErrorInfo<T> {
         return ERROR;
     }
 
-    public Integer getCode() {
-        return code;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatus(Integer code) {
+        this.status = code;
     }
 
     public String getMessage() {

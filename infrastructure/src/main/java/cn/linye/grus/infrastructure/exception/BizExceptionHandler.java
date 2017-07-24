@@ -27,7 +27,7 @@ public class BizExceptionHandler {
     public ErrorInfo<String> jsonErrorHandler(HttpServletRequest req, BizException e) throws Exception {
         ErrorInfo<String> r = new ErrorInfo<>();
         r.setMessage(e.getMessage());
-        r.setCode(ErrorInfo.ERROR);
+        r.setStatus(ErrorInfo.ERROR);
         r.setData("Some Data");
         r.setUrl(req.getRequestURL().toString());
         return r;

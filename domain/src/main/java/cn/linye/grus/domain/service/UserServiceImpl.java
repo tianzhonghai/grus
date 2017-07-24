@@ -3,14 +3,21 @@ package cn.linye.grus.domain.service;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;
+import cn.linye.grus.domain.entity.generated.UserProfileEntity;
 import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
+import cn.linye.grus.domain.repository.generated.UserProfileMapper;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
+import cn.linye.grus.infrastructure.utils.SpringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.dozer.Mapper;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserProfileMapper userProfileMapper;
 
     @Autowired
     private UserRepository userRepository;
@@ -64,6 +74,27 @@ public class UserServiceImpl implements UserService {
 
     public void enableUser(int userId, boolean enabled) {
         userRepository.updateUserEnabled(userId,enabled);
+    }
+
+    public void addUser(AddUserReq req) {
+
+        SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
+
+        SqlSessionFactory sqlSessionFactory = null;
+        try {
+            sqlSessionFactory = sqlSessionFactoryBean.getObject();
+        }catch (Exception ex){}
+
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        UserEntity userEntity = DozerUtils.getDozerMapper().map(req,UserEntity.class);
+        userMapper.insert(userEntity);
+
+        UserProfileEntity userProfileEntity = DozerUtils.getDozerMapper().map(req, UserProfileEntity.class);
+        userProfileMapper.insert(userProfileEntity);
+
+        sqlSession.commit();
     }
 
 

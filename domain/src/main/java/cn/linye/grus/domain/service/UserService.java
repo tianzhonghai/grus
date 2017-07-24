@@ -2,6 +2,7 @@ package cn.linye.grus.domain.service;
 
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 
@@ -17,4 +18,6 @@ public interface UserService {
     void lockUser(int userId,boolean locked);
 
     void enableUser(int userId,boolean enabled);
+
+    void addUser(AddUserReq req);
 }

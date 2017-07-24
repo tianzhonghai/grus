@@ -4,8 +4,11 @@ import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
+import cn.linye.grus.infrastructure.RespEnum;
+import cn.linye.grus.infrastructure.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +63,20 @@ public class SystemController {
     @RequestMapping("/adduser")
     public String addUser(){
         return "system/useradd";
+    }
+
+
+    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    public GeneralResp<String> addUser(AddUserReq addUserReq){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+
+        try {
+            userService.addUser(addUserReq);
+        }catch (Exception ex){
+            BizException.throwBizException(RespEnum.FAIL,ex.getMessage(),ex);
+        }
+
+        return  generalResp;
     }
 
     @RequestMapping("/role")
