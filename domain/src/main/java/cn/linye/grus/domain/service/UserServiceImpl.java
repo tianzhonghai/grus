@@ -53,6 +53,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    public UserEntity getUserEntityByUserId(int userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
     public PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {
         List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername(), queryUserReq.getStart(), queryUserReq.getLength());
         int count = userRepository.countUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername());

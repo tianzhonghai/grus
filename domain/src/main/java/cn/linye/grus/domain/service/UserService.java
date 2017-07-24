@@ -13,6 +13,8 @@ import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 public interface UserService {
     UserEntity getUserEntityByAccount(String account);
 
+    UserEntity getUserEntityByUserId(int userId);
+
     PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq);
 
     void lockUser(int userId,boolean locked);

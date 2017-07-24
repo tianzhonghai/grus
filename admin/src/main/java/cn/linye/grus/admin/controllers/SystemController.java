@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,6 +102,13 @@ public class SystemController {
 
         generalResp.setStatus(RespEnum.SUCCESS.getValue());
         return generalResp;
+    }
+
+    @RequestMapping("/edituser")
+    public String editUser(@RequestParam("userid")int userId, Model model){
+        UserEntity userEntity = userService.getUserEntityByUserId(userId);
+        model.addAttribute("user", userEntity);
+        return "system/useredit";
     }
 
     @RequestMapping("/role")
