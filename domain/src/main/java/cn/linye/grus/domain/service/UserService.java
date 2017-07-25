@@ -1,5 +1,6 @@
 package cn.linye.grus.domain.service;
 
+import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.facade.model.PagedCollectionResp;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
@@ -22,4 +23,6 @@ public interface UserService {
     void enableUser(int userId,boolean enabled);
 
     void addUser(AddUserReq req);
+
+    UserWithProfileEntity getUserWithProfileEntity(int userid);
 }
