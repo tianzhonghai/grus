@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserWithProfileEntity getUserWithProfileEntity(int userid){
-
+        return userRepository.getUserWithProfileEntity(userid);
     }
 
 }

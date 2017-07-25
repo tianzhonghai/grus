@@ -1,5 +1,6 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
@@ -107,10 +108,33 @@ public class SystemController {
 
     @RequestMapping("/edituser")
     public String editUser(@RequestParam("userid")int userId, Model model){
-        UserEntity userEntity = userService.getUserEntityByUserId(userId);
-        AddUserReq addUserReq = DozerUtils.getDozerMapper().map(userEntity,AddUserReq.class);
+        UserWithProfileEntity userWithProfileEntity = userService.getUserWithProfileEntity(userId);
+        AddUserReq addUserReq = DozerUtils.getDozerMapper().map(userWithProfileEntity, AddUserReq.class);
         model.addAttribute("user", addUserReq);
         return "system/useredit";
+    }
+    @RequestMapping("/checkaccountforedit")
+    @ResponseBody
+    public GeneralResp<String> checkAccountForEdit(@RequestParam("account")String account, @RequestParam("old")String old){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        if(StringUtils.isBlank(account)){
+            BizException.throwIllegalArgument("账号不能为空");
+        }
+
+        if(account.equalsIgnoreCase(old)){
+            generalResp.setStatus(RespEnum.FAIL.getValue());
+            return generalResp;
+        }
+
+        UserEntity userEntity = userService.getUserEntityByAccount(account);
+        if(userEntity != null){
+            generalResp.setStatus(RespEnum.FAIL.getValue());
+            generalResp.setMessage(account + "已存在");
+            return generalResp;
+        }
+
+        generalResp.setStatus(RespEnum.SUCCESS.getValue());
+        return generalResp;
     }
 
     @RequestMapping("/role")

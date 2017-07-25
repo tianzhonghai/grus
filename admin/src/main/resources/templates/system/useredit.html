@@ -13,6 +13,7 @@
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">账号</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <input type="text" class="form-control" name="account" id="account" th:value="${user.account}"/>
+                            <input type="hidden" name="oldaccount" id="oldaccount" th:value="${user.account}" />
                         </div>
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">姓名</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
@@ -22,7 +23,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">生日</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control disabled" name="birthday" id="birthday" onclick="WdatePicker()" th:value="${user.birthday}"/>
+                            <input type="text" class="form-control disabled" name="birthday" id="birthday" onclick="WdatePicker()" th:value="${#dates.format(user.birthday, 'yyyy-MM-dd')}"/>
                         </div>
 
                     </div>
@@ -64,8 +65,9 @@
         var isValidAccount = false;
         $('#account').change(function(){
             var txt = $(this).val();
+            var old = $('#oldaccount').val();
             var rnd = new Date().getTime();
-            $.get('/system/checkaccount',{"account":txt,"rnd":rnd },function(data){
+            $.get('/system/checkaccountforedit',{"account":txt,"old":old,"rnd":rnd },function(data){
                 if(data.status == 200){
                     isValidAccount = true;
                 }else {
