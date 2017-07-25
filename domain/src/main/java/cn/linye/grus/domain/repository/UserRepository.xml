@@ -47,4 +47,9 @@
         </set>
         where UserID = #{userId,jdbcType=INTEGER}
     </update>
+    
+    <select id="getUserWithProfileEntity" resultMap="allUserColumnsResultMap">
+          SELECT A.*,B.UserName,B.Birthday FROM `sys_user` A JOIN `sys_userprofile` B
+        ON A.`UserID` = B.`UserID` WHERE A.UserID = #{userid,jdbcType=INTEGER}
+    </select>
 </mapper>
