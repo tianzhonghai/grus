@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="shared/_layoutForm">
-<head>
-
-</head>
+<head></head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
     <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
@@ -14,17 +12,17 @@
                     <div class="form-group">
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">账号</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control" name="account" id="account" />
+                            <input type="text" class="form-control" name="account" id="account" th:value="${user.account}"/>
                         </div>
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">姓名</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control" name="username" id="username" />
+                            <input type="text" class="form-control" name="username" id="username" th:value="${user.username}"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">生日</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control disabled" name="birthday" id="birthday" onclick="WdatePicker()"/>
+                            <input type="text" class="form-control disabled" name="birthday" id="birthday" onclick="WdatePicker()" th:value="${user.birthday}"/>
                         </div>
 
                     </div>

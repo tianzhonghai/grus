@@ -9,6 +9,7 @@ import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
+import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -107,7 +108,8 @@ public class SystemController {
     @RequestMapping("/edituser")
     public String editUser(@RequestParam("userid")int userId, Model model){
         UserEntity userEntity = userService.getUserEntityByUserId(userId);
-        model.addAttribute("user", userEntity);
+        AddUserReq addUserReq = DozerUtils.getDozerMapper().map(userEntity,AddUserReq.class);
+        model.addAttribute("user", addUserReq);
         return "system/useredit";
     }
 

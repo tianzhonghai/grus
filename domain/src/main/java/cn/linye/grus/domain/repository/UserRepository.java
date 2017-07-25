@@ -16,4 +16,6 @@ public interface UserRepository {
     int updateUserLocked(@Param("userId") int userId, @Param("locked") boolean locked);
 
     int updateUserEnabled(@Param("userId") int userId, @Param("enabled") boolean enabled);
+
+    UserWithProfileEntity getUserWithProfileEntity(@Param("userid")int userId);
 }
