@@ -14,6 +14,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <input type="text" class="form-control" name="account" id="account" th:value="${user.account}"/>
                             <input type="hidden" name="oldaccount" id="oldaccount" th:value="${user.account}" />
+                            <input type="hidden" name="userid" id="userid" th:value="${user.userid}" />
                         </div>
                         <label class="col-lg-2 col-md-2 col-sm-2 control-label">姓名</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
@@ -51,7 +52,7 @@
                 alert("账号已存在");return false;
             }
             var parms = $('form').serializeArray();
-            $.post("/system/adduser",parms,function(data){
+            $.post("/system/edituser",parms,function(data){
                 if(data.status == 200){
                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                     parent.layer.close(index); //再执行关闭

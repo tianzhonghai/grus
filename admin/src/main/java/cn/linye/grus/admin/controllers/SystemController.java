@@ -113,6 +113,15 @@ public class SystemController {
         model.addAttribute("user", addUserReq);
         return "system/useredit";
     }
+
+    @RequestMapping(value = "/edituser", method = RequestMethod.POST)
+    public GeneralResp<String> editUser(AddUserReq addUserReq){
+        addUserReq.doValidate();
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        userService.editUser(addUserReq);
+        return generalResp.success();
+    }
+
     @RequestMapping("/checkaccountforedit")
     @ResponseBody
     public GeneralResp<String> checkAccountForEdit(@RequestParam("account")String account, @RequestParam("old")String old){

@@ -1,5 +1,7 @@
 package cn.linye.grus.facade.model;
 
+import cn.linye.grus.infrastructure.RespEnum;
+
 /**
  * @Author tianzhonghai
  * @Date 2017/7/19.
@@ -36,5 +38,15 @@ public class GeneralResp<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public GeneralResp success() {
+        this.setStatus(RespEnum.SUCCESS.getValue());
+        return this;
+    }
+
+    public GeneralResp fail(){
+        this.setStatus(RespEnum.FAIL.getValue());
+        return this;
     }
 }

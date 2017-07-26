@@ -24,5 +24,7 @@ public interface UserService {
 
     void addUser(AddUserReq req);
 
+    void editUser(AddUserReq req);
+
     UserWithProfileEntity getUserWithProfileEntity(int userid);
 }

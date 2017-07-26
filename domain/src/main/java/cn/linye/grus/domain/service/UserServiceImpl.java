@@ -110,6 +110,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public void editUser(AddUserReq req) {
+        SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
+        SqlSessionFactory sqlSessionFactory = null;
+        try {
+            sqlSessionFactory = sqlSessionFactoryBean.getObject();
+        } catch (Exception ex) {
+            BizException.throwFail(ex.getMessage(),ex);
+        }
+        UserEntity userEntity = DozerUtils.getDozerMapper().map(req, UserEntity.class);
+        UserProfileEntity userProfileEntity = DozerUtils.getDozerMapper().map(req, UserProfileEntity.class);
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            userMapper.updateByPrimaryKeySelective(userEntity);
+            userProfileMapper.updateByPrimaryKeySelective(userProfileEntity);
+        }catch (Exception ex){
+            sqlSession.rollback();
+            BizException.throwFail(ex.getMessage(),ex);
+        }
+
+    }
+
     public UserWithProfileEntity getUserWithProfileEntity(int userid){
         return userRepository.getUserWithProfileEntity(userid);
     }

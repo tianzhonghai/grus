@@ -30,6 +30,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.linye</groupId>
+            <artifactId>infrastructure</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

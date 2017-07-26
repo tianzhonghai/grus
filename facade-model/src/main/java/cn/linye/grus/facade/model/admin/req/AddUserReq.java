@@ -2,6 +2,7 @@ package cn.linye.grus.facade.model.admin.req;
 
 import cn.linye.grus.facade.model.BaseReq;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -11,10 +12,14 @@ import java.util.Date;
  */
 public class AddUserReq extends BaseReq {
     private Integer userid;
+    @NotBlank
     private String account;
     private Boolean locked;
     private Boolean enabled;
+
+    @NotBlank
     private String username;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
