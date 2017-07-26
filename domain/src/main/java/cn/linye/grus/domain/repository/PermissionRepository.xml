@@ -8,6 +8,14 @@
         <result column="Url" jdbcType="VARCHAR" property="url" />
         <result column="IsMenu" jdbcType="BIT" property="ismenu" />
     </resultMap>
+
+    <resultMap id="AllPermissionsWithChecked" type="cn.linye.grus.domain.entity.PermissionWithCheckedEntity">
+        <id column="PermissionID" jdbcType="INTEGER" property="permissionid" />
+        <result column="PermissionName" jdbcType="VARCHAR" property="permissionname" />
+        <result column="ParentPermissionID" jdbcType="INTEGER" property="parentpermissionid" />
+        <result column="Checked" jdbcType="INTEGER" property="checked" />
+    </resultMap>
+
     <sql id="Base_Column_List">
         PermissionID, PermissionName, Description, Url, IsMenu
     </sql>
@@ -18,4 +26,9 @@
         WHERE B.`UserID` = #{uesrId,jdbcType=INTEGER}
     </select>
 
+    <select id="getAllPermissionsWithChecked" parameterType="int" resultMap="AllPermissionsWithChecked">
+        SELECT A.PermissionID,A.PermissionName,A.ParentPermissionID,CASE WHEN B.`RoleID` IS NULL THEN 0 ELSE 1 END AS Checked
+FROM `sys_permission` A LEFT JOIN `sys_rolepermission` B
+ON A.`PermissionID` = B.`PermissionID` AND B.`RoleID` = #{roleId,jdbcType=INTEGER}
+    </select>
 </mapper>

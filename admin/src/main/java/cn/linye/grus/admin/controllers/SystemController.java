@@ -1,12 +1,15 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
+import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
 import cn.linye.grus.facade.model.PagedCollectionResp;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
+import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
@@ -34,6 +37,9 @@ import java.util.List;
 public class SystemController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @InitBinder
     protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
@@ -154,5 +160,16 @@ public class SystemController {
     @RequestMapping("/addrole")
     public String addRole(){
         return "system/roleadd";
+    }
+
+    @RequestMapping("/getAllPermissionsWithChecked")
+    @ResponseBody
+    public GeneralResp<List<GetAllPermissionsWithCheckedResp>> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
+        GeneralResp<List<GetAllPermissionsWithCheckedResp>> resp = new GeneralResp<>();
+        List<PermissionWithCheckedRespDto> dtos = permissionService.getAllPermissionsWithChecked(roleId.intValue());
+
+        List<GetAllPermissionsWithCheckedResp> list = DozerUtils.getDozerMapper().map(dtos, new ArrayList<GetAllPermissionsWithCheckedResp>().getClass());
+        resp.setData(list);
+        return resp.success();
     }
 }

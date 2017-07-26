@@ -1,8 +1,13 @@
 package cn.linye.grus.domain.service;
 
+import cn.linye.grus.domain.dtos.PermissionRespDto;
+import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
+import cn.linye.grus.domain.entity.PermissionWithCheckedEntity;
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
 import cn.linye.grus.domain.repository.PermissionRepository;
+import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.infrastructure.caching.GuavaCache;
+import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +22,6 @@ import java.util.concurrent.ExecutionException;
  */
 @Service
 public class PermissionServiceImpl implements PermissionService {
-
     private static final Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Autowired
@@ -26,7 +30,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private GuavaCache guavaCache;
 
-    public List<PermissionEntity> getUserPermissions(int userId) {
+    public List<PermissionRespDto> getUserPermissions(int userId) {
         List<PermissionEntity> entities = new ArrayList<>();
         try {
             Object obj = guavaCache.getCache().get(Integer.toString(userId), () -> {
@@ -36,7 +40,12 @@ public class PermissionServiceImpl implements PermissionService {
         }catch (ExecutionException ex){
             logger.error(ex.getMessage(),ex);
         }
+        return DozerUtils.getDozerMapper().map(entities , new ArrayList<PermissionRespDto>().getClass());
+    }
 
-        return entities;
+    public List<PermissionWithCheckedRespDto> getAllPermissionsWithChecked(int roleId) {
+        List<PermissionWithCheckedEntity> entities = permissionRepository.getAllPermissionsWithChecked(roleId);
+        List<PermissionWithCheckedRespDto> dtos = DozerUtils.getDozerMapper().map(entities , new ArrayList<PermissionWithCheckedRespDto>().getClass());
+        return dtos;
     }
 }

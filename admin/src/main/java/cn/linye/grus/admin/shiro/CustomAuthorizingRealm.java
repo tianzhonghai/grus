@@ -1,5 +1,6 @@
 package cn.linye.grus.admin.shiro;
 
+import cn.linye.grus.domain.dtos.PermissionRespDto;
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
@@ -48,12 +49,12 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
             Set<String> shiroPermissions = new HashSet<>();
             Set<String> roleSet = new HashSet<>();
 
-            List<PermissionEntity> permissions = permissionService.getUserPermissions(user.getUserId());
-            for (PermissionEntity entity : permissions) {
+            List<PermissionRespDto> permissions = permissionService.getUserPermissions(user.getUserId());
+            for (PermissionRespDto dto : permissions) {
 //                if(! roleSet.contains(roleAndPermissionPO.getRoleId().toString())) {
 //                    roleSet.add(roleAndPermissionPO.getRoleId().toString());
 //                }
-                shiroPermissions.add(entity.getPermissionname());
+                shiroPermissions.add(dto.getPermissionname());
             }
             //authorizationInfo.setRoles(roleSet);
             authorizationInfo.setStringPermissions(shiroPermissions); //权限集合，基于角色的可以不设置

@@ -1,13 +1,11 @@
 package cn.linye.grus.admin.controllers;
 
 import cn.linye.grus.admin.shiro.ShiroUser;
-import cn.linye.grus.domain.entity.generated.PermissionEntity;
+import cn.linye.grus.domain.dtos.PermissionRespDto;
 import cn.linye.grus.domain.service.PermissionService;
-import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
 import cn.linye.grus.facade.model.admin.req.LoginReq;
 import cn.linye.grus.facade.model.admin.resp.GetUserPermissionsResp;
-import cn.linye.grus.infrastructure.caching.GuavaCache;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -129,17 +126,17 @@ public class HomeController {
 
         ShiroUser shiroUser = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
 
-        List<PermissionEntity> entities = permissionService.getUserPermissions(shiroUser.getUserId());
-        if(entities != null) {
-            for (PermissionEntity entity : entities) {
-                if(! entity.getIsmenu())continue;
+        List<PermissionRespDto> dtos = permissionService.getUserPermissions(shiroUser.getUserId());
+        if(dtos != null) {
+            for (PermissionRespDto dto : dtos) {
+                if(! dto.getIsmenu())continue;
                 GetUserPermissionsResp resp = new GetUserPermissionsResp();
-                resp.setPermissionid(entity.getPermissionid());
-                resp.setIsmenu(entity.getIsmenu());
-                resp.setPermissioncode(entity.getPermissioncode());
-                resp.setPermissionname(entity.getPermissionname());
-                resp.setParentPermissionId(entity.getParentpermissionid());
-                resp.setUrl(entity.getUrl());
+                resp.setPermissionid(dto.getPermissionid());
+                resp.setIsmenu(dto.getIsmenu());
+                resp.setPermissioncode(dto.getPermissioncode());
+                resp.setPermissionname(dto.getPermissionname());
+                resp.setParentPermissionId(dto.getParentpermissionid());
+                resp.setUrl(dto.getUrl());
                 list.add(resp);
             }
         }
