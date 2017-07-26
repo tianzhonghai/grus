@@ -10,6 +10,7 @@ import cn.linye.grus.facade.model.PagedCollectionResp;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
+import cn.linye.grus.facade.model.admin.resp.PermissionTreeNodeResp;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
@@ -164,11 +165,20 @@ public class SystemController {
 
     @RequestMapping("/getAllPermissionsWithChecked")
     @ResponseBody
-    public GeneralResp<List<GetAllPermissionsWithCheckedResp>> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
-        GeneralResp<List<GetAllPermissionsWithCheckedResp>> resp = new GeneralResp<>();
+    public GeneralResp<List<PermissionTreeNodeResp>> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
+        GeneralResp<List<PermissionTreeNodeResp>> resp = new GeneralResp<>();
         List<PermissionWithCheckedRespDto> dtos = permissionService.getAllPermissionsWithChecked(roleId.intValue());
+        List<PermissionTreeNodeResp> list = new ArrayList<>();
+        for (PermissionWithCheckedRespDto dto: dtos ) {
+            PermissionTreeNodeResp node = new PermissionTreeNodeResp();
+            node.setId(dto.getPermissionid());
+            node.setName(dto.getPermissionname());
+            node.setPid(dto.getParentpermissionid());
+            node.setChecked(true);
+            list.add(node);
+        }
 
-        List<GetAllPermissionsWithCheckedResp> list = DozerUtils.getDozerMapper().map(dtos, new ArrayList<GetAllPermissionsWithCheckedResp>().getClass());
+
         resp.setData(list);
         return resp.success();
     }
