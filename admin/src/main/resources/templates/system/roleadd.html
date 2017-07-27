@@ -63,7 +63,7 @@
             async: {
                 enable: true,
                 autoParam: ["id"],
-                url: "/system/getAllPermissionsWithChecked",
+                url: "/system/getAllPermissionsWithChecked?roleid=0",
             }
         };
         // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
@@ -74,7 +74,7 @@
                 {name:"test2_1"}, {name:"test2_2"}]}
         ];
         $(document).ready(function(){
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting);
         });
 
         $('#btnSave').click(function(){

@@ -5,6 +5,7 @@ import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.entity.PermissionWithCheckedEntity;
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
 import cn.linye.grus.domain.repository.PermissionRepository;
+import cn.linye.grus.domain.repository.generated.PermissionMapper;
 import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.infrastructure.caching.GuavaCache;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
@@ -30,6 +31,9 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionRepository permissionRepository;
 
     @Autowired
+    private PermissionMapper permissionMapper;
+
+    @Autowired
     private GuavaCache guavaCache;
 
     public List<PermissionRespDto> getUserPermissions(int userId) {
@@ -46,13 +50,24 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     public List<PermissionWithCheckedRespDto> getAllPermissionsWithChecked(int roleId) {
-        List<PermissionWithCheckedEntity> entities = permissionRepository.getAllPermissionsWithChecked(roleId);
-
         List<PermissionWithCheckedRespDto> dtos = new ArrayList<>();
-
-        for (PermissionWithCheckedEntity entity: entities) {
-            PermissionWithCheckedRespDto dto = DozerUtils.getDozerMapper().map(entity, PermissionWithCheckedRespDto.class);
-            dtos.add(dto);
+        if(roleId == 0){
+            List<PermissionEntity> permissionEntities = permissionMapper.selectByExample(null);
+            if(permissionEntities != null){
+                for (PermissionEntity entity : permissionEntities) {
+                    PermissionWithCheckedRespDto dto = DozerUtils.getDozerMapper().map(entity, PermissionWithCheckedRespDto.class);
+                    dtos.add(dto);
+                }
+            }
+        }
+        else {
+            List<PermissionWithCheckedEntity> entities = permissionRepository.getAllPermissionsWithChecked(roleId);
+            if(entities != null) {
+                for (PermissionWithCheckedEntity entity : entities) {
+                    PermissionWithCheckedRespDto dto = DozerUtils.getDozerMapper().map(entity, PermissionWithCheckedRespDto.class);
+                    dtos.add(dto);
+                }
+            }
         }
         return dtos;
     }

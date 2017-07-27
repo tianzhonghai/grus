@@ -165,7 +165,7 @@ public class SystemController {
 
     @RequestMapping("/getAllPermissionsWithChecked")
     @ResponseBody
-    public GeneralResp<List<PermissionTreeNodeResp>> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
+    public List<PermissionTreeNodeResp> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
         GeneralResp<List<PermissionTreeNodeResp>> resp = new GeneralResp<>();
         List<PermissionWithCheckedRespDto> dtos = permissionService.getAllPermissionsWithChecked(roleId.intValue());
         List<PermissionTreeNodeResp> list = new ArrayList<>();
@@ -178,8 +178,6 @@ public class SystemController {
             list.add(node);
         }
 
-
-        resp.setData(list);
-        return resp.success();
+        return list;
     }
 }
