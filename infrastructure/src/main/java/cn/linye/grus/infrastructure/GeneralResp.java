@@ -1,6 +1,4 @@
-package cn.linye.grus.facade.model;
-
-import cn.linye.grus.infrastructure.RespEnum;
+package cn.linye.grus.infrastructure;
 
 /**
  * @Author tianzhonghai

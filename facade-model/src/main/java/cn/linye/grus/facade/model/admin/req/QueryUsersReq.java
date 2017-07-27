@@ -1,8 +1,6 @@
 package cn.linye.grus.facade.model.admin.req;
 
-import cn.linye.grus.facade.model.BasePagedReq;
-
-import java.util.Date;
+import cn.linye.grus.infrastructure.BasePagedReq;
 
 /**
  * 查询用户

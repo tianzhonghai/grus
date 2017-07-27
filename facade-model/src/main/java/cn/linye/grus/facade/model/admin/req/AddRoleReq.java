@@ -1,6 +1,6 @@
 package cn.linye.grus.facade.model.admin.req;
 
-import cn.linye.grus.facade.model.BaseReq;
+import cn.linye.grus.infrastructure.BaseReq;
 
 import java.util.List;
 

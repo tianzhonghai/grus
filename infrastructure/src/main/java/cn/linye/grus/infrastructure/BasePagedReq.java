@@ -1,4 +1,4 @@
-package cn.linye.grus.facade.model;
+package cn.linye.grus.infrastructure;
 
 /**
  * Created by Tim on 2017/7/23.

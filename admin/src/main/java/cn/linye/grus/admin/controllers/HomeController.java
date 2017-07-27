@@ -3,7 +3,7 @@ package cn.linye.grus.admin.controllers;
 import cn.linye.grus.admin.shiro.ShiroUser;
 import cn.linye.grus.domain.dtos.PermissionRespDto;
 import cn.linye.grus.domain.service.PermissionService;
-import cn.linye.grus.facade.model.GeneralResp;
+import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.facade.model.admin.req.LoginReq;
 import cn.linye.grus.facade.model.admin.resp.GetUserPermissionsResp;
 import org.apache.shiro.SecurityUtils;

@@ -1,4 +1,4 @@
-package cn.linye.grus.facade.model;
+package cn.linye.grus.infrastructure;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

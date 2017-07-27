@@ -6,7 +6,7 @@ import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
-import cn.linye.grus.facade.model.GeneralResp;
+import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
