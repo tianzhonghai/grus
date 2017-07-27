@@ -13,25 +13,18 @@
             <div class="col-lg-12">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-lg-2 col-md-2 col-sm-2 control-label">账号</label>
+                        <label class="col-lg-2 col-md-2 col-sm-2 control-label">角色名称</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control" name="account" id="account" />
+                            <input type="text" class="form-control" name="rolename" id="rolename" />
                         </div>
-                        <label class="col-lg-2 col-md-2 col-sm-2 control-label">姓名</label>
+                        <label class="col-lg-2 col-md-2 col-sm-2 control-label">角色描述</label>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control" name="username" id="username" />
+                            <input type="text" class="form-control" name="roledesc" id="roledesc" />
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 col-md-2 col-sm-2 control-label">生日</label>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <input type="text" class="form-control disabled" name="birthday" id="birthday" onclick="WdatePicker()"/>
-                        </div>
-
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <ul id="treeDemo" class="ztree"></ul>
+                            <ul id="treePermissions" class="ztree"></ul>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,18 +64,47 @@
             }
         };
         // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-        var zNodes = [
-            {name:"test1", open:true, children:[
-                {name:"test1_1"}, {name:"test1_2"}]},
-            {name:"test2", open:true, children:[
-                {name:"test2_1"}, {name:"test2_2"}]}
+        var zNodes = [{name:"test1", open:true, children:[{name:"test1_1"}, {name:"test1_2"}]},
+            {name:"test2", open:true, children:[{name:"test2_1"}, {name:"test2_2"}]}
         ];
         $(document).ready(function(){
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting);
+            zTreeObj = $.fn.zTree.init($("#treePermissions"), setting);
         });
 
         $('#btnSave').click(function(){
-            alert(zTreeObj.getCheckedNodes());
+            if($('#rolename').val() == ''){
+                alert('角色名称不能为空');
+                return false;
+            }
+
+//            if(! isValidAccount) {
+//                alert("账号已存在");return false;
+//            }
+
+            var checdedNodes = zTreeObj.getCheckedNodes();
+            var ids = new Array();
+            $.each(checdedNodes, function(i,val){
+                ids.push(val.id);
+            });
+            var parms = {"rolename": $('#rolename').val(), "roledesc": $('#roledesc').val(),"permissionIds": ids};
+
+            $.ajax({
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/system/addrole",
+                data: JSON.stringify(parms),
+                success: function(data){
+                    if(data.status == 200){
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                        parent.refershGrid();
+                    }else {
+                        alert(data.message);
+                    }
+                }
+            })
+
         })
     </script>
 </th:block>

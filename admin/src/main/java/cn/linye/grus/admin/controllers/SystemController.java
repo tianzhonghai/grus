@@ -7,6 +7,7 @@ import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
 import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
@@ -160,6 +161,13 @@ public class SystemController {
 
     @RequestMapping("/addrole")
     public String addRole(){
+        return "system/roleadd";
+    }
+
+    @RequestMapping(value = "/addrole" , method = RequestMethod.POST)
+    @ResponseBody
+    public String addRole(@RequestBody AddRoleReq addRoleReq){
+
         return "system/roleadd";
     }
 
