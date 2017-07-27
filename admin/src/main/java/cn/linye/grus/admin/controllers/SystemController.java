@@ -186,9 +186,10 @@ public class SystemController {
 
     @RequestMapping(value = "/addrole" , method = RequestMethod.POST)
     @ResponseBody
-    public String addRole(@RequestBody AddRoleReq addRoleReq){
+    public GeneralResp<String> addRole(@RequestBody AddRoleReq addRoleReq){
+        GeneralResp<String> generalResp = new GeneralResp<>();
 
-        return "system/roleadd";
+        return generalResp.success();
     }
 
     @RequestMapping("/getAllPermissionsWithChecked")

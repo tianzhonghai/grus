@@ -4,6 +4,7 @@ import cn.linye.grus.domain.dtos.RoleDto;
 import cn.linye.grus.domain.entity.generated.RoleEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntityExample;
 import cn.linye.grus.domain.repository.RoleRepository;
+import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
@@ -36,5 +37,9 @@ public class RoleServiceImpl implements RoleService {
         pagedCollection.setRecordsFiltered((int)count);
 
         return pagedCollection;
+    }
+
+    public void addRole(AddRoleReq addRoleReq) {
+
     }
 }
