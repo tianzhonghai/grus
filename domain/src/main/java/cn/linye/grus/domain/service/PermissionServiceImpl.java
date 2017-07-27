@@ -46,7 +46,7 @@ public class PermissionServiceImpl implements PermissionService {
         }catch (ExecutionException ex){
             logger.error(ex.getMessage(),ex);
         }
-        return DozerUtils.getDozerMapper().map(entities , new ArrayList<PermissionRespDto>().getClass());
+        return DozerUtils.mapList(entities , PermissionRespDto.class);
     }
 
     public List<PermissionWithCheckedRespDto> getAllPermissionsWithChecked(int roleId) {

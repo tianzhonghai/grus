@@ -5,7 +5,9 @@ import cn.linye.grus.domain.dtos.RoleDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
+import cn.linye.grus.domain.service.RoleService;
 import cn.linye.grus.domain.service.UserService;
+import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
@@ -41,6 +43,9 @@ public class SystemController {
     private UserService userService;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private PermissionService permissionService;
 
     @InitBinder
@@ -50,12 +55,12 @@ public class SystemController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/userlist")
     public String user(){
         return "system/userlist";
     }
 
-    @RequestMapping("/queryusers")
+    @RequestMapping("/queryuserlist")
     @ResponseBody
     public PagedCollection<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
         PagedCollection<QueryUsersResp> result = userService.queryUserList(QueryUsersReq);
@@ -154,17 +159,16 @@ public class SystemController {
         return generalResp;
     }
 
-    @RequestMapping("/role")
+    @RequestMapping("/rolelist")
     public String role() {
         return "system/rolelist";
     }
 
     @RequestMapping("/queryrolelist")
     @ResponseBody
-    public PagedCollection<RoleDto> queryRoleList(){
-        PagedCollection<RoleDto> pagedCollectionResp = new PagedCollection<>();
-
-        return pagedCollectionResp;
+    public PagedCollection<RoleDto> queryRoleList(QueryRolesReq queryRolesReq){
+        PagedCollection<RoleDto> result = roleService.queryRoleList(queryRolesReq);
+        return result;
     }
 
     @RequestMapping("/addrole")

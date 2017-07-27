@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linye.grus.domain.repository.RoleRepository">
+    <resultMap id="BaseResultMap" type="cn.linye.grus.domain.entity.generated.RoleEntity">
+        <id column="RoleID" jdbcType="INTEGER" property="roleid" />
+        <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
+        <result column="RoleDesc" jdbcType="VARCHAR" property="roledesc" />
+        <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        RoleID, RoleName, RoleDesc, CreatedTime
+    </sql>
+    <select id="queryRoleEntities"  resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `sys_role`
+        <if test="roleName != null">
+            AND RoleName LIKE CONCAT('%','${roleName}','%' )
+        </if>
+        LIMIT #{start},#{limit}
+    </select>
+    <select id="countRoleEntities" resultType="java.lang.Integer">
+        select count(*) from `sys_role`
+        <if test="roleName != null">
+            AND RoleName LIKE CONCAT('%','${roleName}','%' )
+        </if>
+    </select>
+</mapper>
