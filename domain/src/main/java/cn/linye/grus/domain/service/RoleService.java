@@ -23,4 +23,8 @@ public interface RoleService {
      * @param addRoleReq
      */
     void  addRole(AddRoleReq addRoleReq);
+
+    RoleDto getRoleById(int roleId);
+
+    void editRole(AddRoleReq addRoleReq);
 }

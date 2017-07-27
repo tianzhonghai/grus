@@ -11,11 +11,21 @@ import java.util.List;
  * @Date 2017/7/27.
  */
 public class AddRoleReq extends BaseReq {
-    @NotBlank
+    private Integer roleid;
+
+    @NotBlank(message = "角色名称不能为空")
     private String rolename;
     private String roledesc;
-    @NotEmpty
+    @NotEmpty(message = "权限不能为空")
     private List<Integer> permissionIds;
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
 
     public String getRolename() {
         return rolename;

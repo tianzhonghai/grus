@@ -193,6 +193,21 @@ public class SystemController {
         return generalResp.success();
     }
 
+    @RequestMapping("/editrole")
+    public String editRole(@RequestParam("roleid")Integer roleId, Model model) {
+        RoleDto roleDto = roleService.getRoleById(roleId);
+        AddRoleReq addRoleReq = DozerUtils.getDozerMapper().map(roleDto, AddRoleReq.class);
+        model.addAttribute("role", addRoleReq);
+        return "/system/roleedit";
+    }
+
+    @RequestMapping("/editrole")
+    @ResponseBody
+    public GeneralResp<String> editrole(@RequestBody AddRoleReq addRoleReq){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+
+        return generalResp;
+    }
     @RequestMapping("/getAllPermissionsWithChecked")
     @ResponseBody
     public List<PermissionTreeNodeResp> getAllPermissionsWithChecked(@RequestParam(value = "roleid", defaultValue = "0")Integer roleId) {

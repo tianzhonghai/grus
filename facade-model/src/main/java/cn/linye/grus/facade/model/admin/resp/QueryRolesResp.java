@@ -14,6 +14,15 @@ public class QueryRolesResp {
     private String roledesc;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdtime;
+    private Boolean issystem;
+
+    public Boolean getIssystem() {
+        return issystem;
+    }
+
+    public void setIssystem(Boolean issystem) {
+        this.issystem = issystem;
+    }
 
     public Integer getRoleid() {
         return roleid;

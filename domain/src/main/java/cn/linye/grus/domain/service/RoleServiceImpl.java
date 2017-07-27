@@ -59,6 +59,7 @@ public class RoleServiceImpl implements RoleService {
 
         RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq, RoleEntity.class);
         roleEntity.setCreatedtime(new Date());
+        roleEntity.setIssystem(false);
         SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
         SqlSessionFactory sqlSessionFactory = null;
         try {
@@ -81,5 +82,14 @@ public class RoleServiceImpl implements RoleService {
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);
         }
+    }
+
+    public RoleDto getRoleById(int roleId) {
+        RoleEntity roleEntity = roleMapper.selectByPrimaryKey(roleId);
+        return DozerUtils.getDozerMapper().map(roleEntity,RoleDto.class);
+    }
+
+    public void editRole(AddRoleReq addRoleReq) {
+        RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq,RoleEntity.class);
     }
 }

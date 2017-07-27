@@ -1,5 +1,7 @@
 package cn.linye.grus.infrastructure;
 
+import cn.linye.grus.infrastructure.exception.BizException;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -21,7 +23,8 @@ public class BaseReq {
                 sb.append(item.getMessage()).append(";");
             }
 
-            throw new IllegalArgumentException(sb.toString());
+            //throw new IllegalArgumentException(sb.toString());
+            BizException.throwIllegalArgument(sb.toString());
         }
     }
 }

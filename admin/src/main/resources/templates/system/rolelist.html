@@ -45,6 +45,7 @@
                                 <th>角色名称</th>
                                 <th>角色描述</th>
                                 <th>创建时间</th>
+                                <th>系统角色</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -94,8 +95,9 @@
                 { "data": "rolename" },
                 { "data": "roledesc" },
                 { "data": "createdtime" },
+                { "data": "issystem" },
                 { "data":"roleid", "render":  function ( data, type, row ) {
-                    var html = "";
+                    var html = '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';
                     return html;
                 }}
             ]
@@ -110,16 +112,6 @@
         function refershGrid(){
             table.ajax.reload();
         }
-        function doLock(userId,locked){
-            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
-                refershGrid();
-            })
-        }
-        function doEnable(userId,enabled){
-            $.post('/system/enableuser',{"userid": userId, "enabled": enabled },function(){
-                refershGrid();
-            })
-        }
 
         $('#btnNew').click(function(){
             layer.open({
@@ -130,13 +122,18 @@
             });
         })
 
-        function doEdit(userId){
+        function doEdit(roleId){
             layer.open({
                 type: 2,
                 area: ['800px', '500px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/system/edituser?userid='+userId
+                content: '/system/editrole?roleid='+roleId
             });
+        }
+        function doDelete(userId,locked){
+            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
+                refershGrid();
+            })
         }
     </script>
 
