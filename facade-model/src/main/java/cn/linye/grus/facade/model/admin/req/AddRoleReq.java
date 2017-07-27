@@ -1,6 +1,8 @@
 package cn.linye.grus.facade.model.admin.req;
 
 import cn.linye.grus.infrastructure.BaseReq;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -9,8 +11,10 @@ import java.util.List;
  * @Date 2017/7/27.
  */
 public class AddRoleReq extends BaseReq {
+    @NotBlank
     private String rolename;
     private String roledesc;
+    @NotEmpty
     private List<Integer> permissionIds;
 
     public String getRolename() {

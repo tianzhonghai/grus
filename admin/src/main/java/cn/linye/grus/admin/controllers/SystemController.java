@@ -187,8 +187,9 @@ public class SystemController {
     @RequestMapping(value = "/addrole" , method = RequestMethod.POST)
     @ResponseBody
     public GeneralResp<String> addRole(@RequestBody AddRoleReq addRoleReq){
+        addRoleReq.doValidate();
         GeneralResp<String> generalResp = new GeneralResp<>();
-
+        roleService.addRole(addRoleReq);
         return generalResp.success();
     }
 

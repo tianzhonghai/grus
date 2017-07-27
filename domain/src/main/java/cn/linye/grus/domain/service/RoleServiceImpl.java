@@ -3,9 +3,11 @@ package cn.linye.grus.domain.service;
 import cn.linye.grus.domain.dtos.RoleDto;
 import cn.linye.grus.domain.entity.generated.RoleEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntityExample;
+import cn.linye.grus.domain.entity.generated.RolePermissionEntity;
 import cn.linye.grus.domain.repository.RoleRepository;
 import cn.linye.grus.domain.repository.generated.PermissionMapper;
 import cn.linye.grus.domain.repository.generated.RoleMapper;
+import cn.linye.grus.domain.repository.generated.RolePermissionMapper;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.PagedCollection;
@@ -34,7 +36,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Autowired
-    private PermissionMapper permissionMapper;
+    private RolePermissionMapper rolePermissionMapper;
 
     public PagedCollection<RoleDto> queryRoleList(QueryRolesReq queryRolesReq) {
         RoleEntityExample roleEntityExample = new RoleEntityExample();
@@ -53,6 +55,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public void addRole(AddRoleReq addRoleReq) {
+
+        RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq, RoleEntity.class);
+
         SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
         SqlSessionFactory sqlSessionFactory = null;
         try {
@@ -63,11 +68,13 @@ public class RoleServiceImpl implements RoleService {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            int userId = roleMapper.insert(null);
-            for (int roleId :addRoleReq.getPermissionIds()) {
-                permissionMapper.insert(null);
+            int roleId = roleMapper.insert(roleEntity);
+            for (int permissionId :addRoleReq.getPermissionIds()) {
+                RolePermissionEntity rolePermissionEntity = new RolePermissionEntity();
+                rolePermissionEntity.setPermissionid(permissionId);
+                rolePermissionEntity.setRoleid(roleId);
+                rolePermissionMapper.insert(rolePermissionEntity);
             }
-
             sqlSession.commit();
         } catch (Exception ex) {
             sqlSession.rollback();
