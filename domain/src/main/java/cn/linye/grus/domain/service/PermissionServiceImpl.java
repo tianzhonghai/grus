@@ -8,11 +8,13 @@ import cn.linye.grus.domain.repository.PermissionRepository;
 import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.infrastructure.caching.GuavaCache;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
+import com.alibaba.fastjson.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -45,7 +47,13 @@ public class PermissionServiceImpl implements PermissionService {
 
     public List<PermissionWithCheckedRespDto> getAllPermissionsWithChecked(int roleId) {
         List<PermissionWithCheckedEntity> entities = permissionRepository.getAllPermissionsWithChecked(roleId);
-        List<PermissionWithCheckedRespDto> dtos = DozerUtils.getDozerMapper().map(entities , new ArrayList<PermissionWithCheckedRespDto>().getClass());
+
+        List<PermissionWithCheckedRespDto> dtos = new ArrayList<>();
+
+        for (PermissionWithCheckedEntity entity: entities) {
+            PermissionWithCheckedRespDto dto = DozerUtils.getDozerMapper().map(entity, PermissionWithCheckedRespDto.class);
+            dtos.add(dto);
+        }
         return dtos;
     }
 }
