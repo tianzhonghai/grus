@@ -165,7 +165,7 @@ public class SystemController {
 
     @RequestMapping("/getAllPermissionsWithChecked")
     @ResponseBody
-    public List<PermissionTreeNodeResp> getAllPermissionsWithChecked(@RequestParam("roleid")Integer roleId) {
+    public List<PermissionTreeNodeResp> getAllPermissionsWithChecked(@RequestParam(value = "roleid", defaultValue = "0")Integer roleId) {
         GeneralResp<List<PermissionTreeNodeResp>> resp = new GeneralResp<>();
         List<PermissionWithCheckedRespDto> dtos = permissionService.getAllPermissionsWithChecked(roleId.intValue());
         List<PermissionTreeNodeResp> list = new ArrayList<>();
