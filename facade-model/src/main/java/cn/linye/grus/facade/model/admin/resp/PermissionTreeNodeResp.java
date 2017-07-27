@@ -11,6 +11,7 @@ public class PermissionTreeNodeResp {
     private String name;
     private Integer pid;
     private boolean checked;
+    private boolean open;
 
     public Integer getId() {
         return id;
@@ -42,5 +43,14 @@ public class PermissionTreeNodeResp {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public boolean getOpen() {
+        return open;
+    }
+
+    public PermissionTreeNodeResp setOpen(boolean open) {
+        this.open = open;
+        return this;
     }
 }

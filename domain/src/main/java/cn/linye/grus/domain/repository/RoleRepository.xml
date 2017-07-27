@@ -15,14 +15,14 @@
         <include refid="Base_Column_List" />
         FROM `sys_role`
         <if test="roleName != null">
-            AND RoleName LIKE CONCAT('%','${roleName}','%' )
+            WHERE RoleName LIKE CONCAT('%','${roleName}','%' )
         </if>
         LIMIT #{start},#{limit}
     </select>
     <select id="countRoleEntities" resultType="java.lang.Integer">
         select count(*) from `sys_role`
         <if test="roleName != null">
-            AND RoleName LIKE CONCAT('%','${roleName}','%' )
+            WHERE RoleName LIKE CONCAT('%','${roleName}','%' )
         </if>
     </select>
 </mapper>

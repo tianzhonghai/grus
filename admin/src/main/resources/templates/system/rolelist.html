@@ -92,6 +92,8 @@
             "columns": [
                 { "data": "roleid" ,"bSortable": false },
                 { "data": "rolename" },
+                { "data": "roledesc" },
+                { "data": "createdtime" },
                 { "data":"roleid", "render":  function ( data, type, row ) {
                     var html = "";
                     return html;
@@ -124,7 +126,7 @@
                 type: 2,
                 area: ['800px', '500px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/system/adduser'
+                content: '/system/addrole'
             });
         })
 

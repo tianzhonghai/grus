@@ -8,6 +8,7 @@ import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.RoleService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
+import cn.linye.grus.facade.model.admin.resp.QueryRolesResp;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
@@ -166,9 +167,16 @@ public class SystemController {
 
     @RequestMapping("/queryrolelist")
     @ResponseBody
-    public PagedCollection<RoleDto> queryRoleList(QueryRolesReq queryRolesReq){
+    public PagedCollection<QueryRolesResp> queryRoleList(QueryRolesReq queryRolesReq){
         PagedCollection<RoleDto> result = roleService.queryRoleList(queryRolesReq);
-        return result;
+
+        List<QueryRolesResp> list = DozerUtils.mapList(result.getData(),QueryRolesResp.class);
+        PagedCollection<QueryRolesResp> pagedCollection = new PagedCollection<>();
+        pagedCollection.setData(list);
+        pagedCollection.setRecordsTotal(result.getRecordsTotal());
+        pagedCollection.setDraw(result.getDraw());
+        pagedCollection.setRecordsFiltered(result.getRecordsFiltered());
+        return pagedCollection;
     }
 
     @RequestMapping("/addrole")
@@ -198,6 +206,11 @@ public class SystemController {
                 node.setChecked(false);
             }else {
                 node.setChecked(true);
+            }
+
+            node.setOpen(false);
+            if(dto.getParentpermissionid() == null || dto.getParentpermissionid() == 0){
+                node.setOpen(true);
             }
             list.add(node);
         }
