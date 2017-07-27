@@ -20,6 +20,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
     public void addRole(AddRoleReq addRoleReq) {
 
         RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq, RoleEntity.class);
-
+        roleEntity.setCreatedtime(new Date());
         SqlSessionFactoryBean sqlSessionFactoryBean = SpringUtils.getBean(SqlSessionFactoryBean.class);
         SqlSessionFactory sqlSessionFactory = null;
         try {
@@ -68,11 +69,11 @@ public class RoleServiceImpl implements RoleService {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            int roleId = roleMapper.insert(roleEntity);
+            int rows = roleMapper.insert(roleEntity);
             for (int permissionId :addRoleReq.getPermissionIds()) {
                 RolePermissionEntity rolePermissionEntity = new RolePermissionEntity();
                 rolePermissionEntity.setPermissionid(permissionId);
-                rolePermissionEntity.setRoleid(roleId);
+                rolePermissionEntity.setRoleid(roleEntity.getRoleid());
                 rolePermissionMapper.insert(rolePermissionEntity);
             }
             sqlSession.commit();

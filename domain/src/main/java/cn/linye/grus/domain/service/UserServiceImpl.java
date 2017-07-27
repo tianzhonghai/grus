@@ -98,8 +98,8 @@ public class UserServiceImpl implements UserService {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            int userId = userMapper.insert(userEntity);
-            userProfileEntity.setUserid(userId);
+            int rows = userMapper.insert(userEntity);
+            userProfileEntity.setUserid(userEntity.getUserid());
             userProfileMapper.insert(userProfileEntity);
             sqlSession.commit();
         } catch (Exception ex) {
