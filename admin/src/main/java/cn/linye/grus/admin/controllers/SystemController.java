@@ -1,16 +1,16 @@
 package cn.linye.grus.admin.controllers;
 
 import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
+import cn.linye.grus.domain.dtos.RoleDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.facade.model.GeneralResp;
-import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
-import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.facade.model.admin.resp.PermissionTreeNodeResp;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
 import cn.linye.grus.infrastructure.RespEnum;
@@ -57,8 +57,8 @@ public class SystemController {
 
     @RequestMapping("/queryusers")
     @ResponseBody
-    public PagedCollectionResp<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
-        PagedCollectionResp<QueryUsersResp> result = userService.queryUserList(QueryUsersReq);
+    public PagedCollection<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
+        PagedCollection<QueryUsersResp> result = userService.queryUserList(QueryUsersReq);
         return result;
     }
 
@@ -157,6 +157,14 @@ public class SystemController {
     @RequestMapping("/role")
     public String role() {
         return "system/rolelist";
+    }
+
+    @RequestMapping("/queryrolelist")
+    @ResponseBody
+    public PagedCollection<RoleDto> queryRoleList(){
+        PagedCollection<RoleDto> pagedCollectionResp = new PagedCollection<>();
+
+        return pagedCollectionResp;
     }
 
     @RequestMapping("/addrole")

@@ -7,7 +7,7 @@ import cn.linye.grus.domain.entity.generated.UserProfileEntity;
 import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
 import cn.linye.grus.domain.repository.generated.UserProfileMapper;
-import cn.linye.grus.facade.model.PagedCollectionResp;
+import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
 import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
@@ -17,8 +17,6 @@ import cn.linye.grus.infrastructure.utils.SecretUtils;
 import cn.linye.grus.infrastructure.utils.SpringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.dozer.Mapper;
-import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,10 +55,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByPrimaryKey(userId);
     }
 
-    public PagedCollectionResp<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {
+    public PagedCollection<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {
         List<UserWithProfileEntity> userWithProfileEntities = userRepository.queryUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername(), queryUserReq.getStart(), queryUserReq.getLength());
         int count = userRepository.countUserWithProfileEntities(queryUserReq.getAccount(), queryUserReq.getUsername());
-        PagedCollectionResp<QueryUsersResp> result = new PagedCollectionResp<>();
+        PagedCollection<QueryUsersResp> result = new PagedCollection<>();
         List<QueryUsersResp> list = new ArrayList<>();
         for (UserWithProfileEntity item :
                 userWithProfileEntities) {

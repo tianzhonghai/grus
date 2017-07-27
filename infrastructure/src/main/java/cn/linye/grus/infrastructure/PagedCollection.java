@@ -1,4 +1,4 @@
-package cn.linye.grus.facade.model;
+package cn.linye.grus.infrastructure;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * 分页
  * Created by Tim on 2017/7/20.
  */
-public class PagedCollectionResp<T> {
+public class PagedCollection<T> {
     private int draw;
     private int recordsTotal;
     private int recordsFiltered;
