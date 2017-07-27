@@ -15,6 +15,8 @@ public class RoleDto {
 
     private Date createdtime;
 
+    private Boolean issystem;
+
     public Integer getRoleid() {
         return roleid;
     }
@@ -45,5 +47,13 @@ public class RoleDto {
 
     public void setCreatedtime(Date createdtime) {
         this.createdtime = createdtime;
+    }
+
+    public Boolean getIssystem() {
+        return issystem;
+    }
+
+    public void setIssystem(Boolean issystem) {
+        this.issystem = issystem;
     }
 }

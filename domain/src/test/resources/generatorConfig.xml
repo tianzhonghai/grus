@@ -43,10 +43,10 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="sys_user" domainObjectName="UserEntity" mapperName="UserMapper">
+        <table tableName="sys_role" domainObjectName="RoleEntity" mapperName="RoleMapper">
             <property name="beginningDelimiter" value="`"/>
             <property name="endingDelimiter" value="`"/>
-            <generatedKey column="UserID" sqlStatement="MySql" identity="true"></generatedKey>
+            <generatedKey column="RoleID" sqlStatement="MySql" identity="true"></generatedKey>
         </table>
     </context>
 </generatorConfiguration>

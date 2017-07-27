@@ -6,9 +6,10 @@
         <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
         <result column="RoleDesc" jdbcType="VARCHAR" property="roledesc" />
         <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
+        <result column="IsSystem" jdbcType="BIT" property="issystem" />
     </resultMap>
     <sql id="Base_Column_List">
-        RoleID, RoleName, RoleDesc, CreatedTime
+        RoleID, RoleName, RoleDesc, CreatedTime, IsSystem
     </sql>
     <select id="queryRoleEntities"  resultMap="BaseResultMap">
         SELECT

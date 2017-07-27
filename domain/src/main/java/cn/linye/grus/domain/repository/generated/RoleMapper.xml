@@ -6,6 +6,7 @@
     <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
     <result column="RoleDesc" jdbcType="VARCHAR" property="roledesc" />
     <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
+    <result column="IsSystem" jdbcType="BIT" property="issystem" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    RoleID, RoleName, RoleDesc, CreatedTime
+    RoleID, RoleName, RoleDesc, CreatedTime, IsSystem
   </sql>
   <select id="selectByExample" parameterType="cn.linye.grus.domain.entity.generated.RoleEntityExample" resultMap="BaseResultMap">
     select
@@ -102,10 +103,10 @@
     <selectKey keyProperty="roleid" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into sys_role (RoleName, RoleDesc, CreatedTime
-      )
-    values (#{rolename,jdbcType=VARCHAR}, #{roledesc,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP}
-      )
+    insert into sys_role (RoleName, RoleDesc, CreatedTime, 
+      IsSystem)
+    values (#{rolename,jdbcType=VARCHAR}, #{roledesc,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP}, 
+      #{issystem,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.linye.grus.domain.entity.generated.RoleEntity">
     <selectKey keyProperty="roleid" order="AFTER" resultType="java.lang.Integer">
@@ -122,6 +123,9 @@
       <if test="createdtime != null">
         CreatedTime,
       </if>
+      <if test="issystem != null">
+        IsSystem,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rolename != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="createdtime != null">
         #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issystem != null">
+        #{issystem,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.createdtime != null">
         CreatedTime = #{record.createdtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.issystem != null">
+        IsSystem = #{record.issystem,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set RoleID = #{record.roleid,jdbcType=INTEGER},
       RoleName = #{record.rolename,jdbcType=VARCHAR},
       RoleDesc = #{record.roledesc,jdbcType=VARCHAR},
-      CreatedTime = #{record.createdtime,jdbcType=TIMESTAMP}
+      CreatedTime = #{record.createdtime,jdbcType=TIMESTAMP},
+      IsSystem = #{record.issystem,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="createdtime != null">
         CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="issystem != null">
+        IsSystem = #{issystem,jdbcType=BIT},
+      </if>
     </set>
     where RoleID = #{roleid,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update sys_role
     set RoleName = #{rolename,jdbcType=VARCHAR},
       RoleDesc = #{roledesc,jdbcType=VARCHAR},
-      CreatedTime = #{createdtime,jdbcType=TIMESTAMP}
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      IsSystem = #{issystem,jdbcType=BIT}
     where RoleID = #{roleid,jdbcType=INTEGER}
   </update>
 </mapper>
