@@ -174,7 +174,11 @@ public class SystemController {
             node.setId(dto.getPermissionid());
             node.setName(dto.getPermissionname());
             node.setPid(dto.getParentpermissionid());
-            node.setChecked(true);
+            if(dto.getChecked() == null || dto.getChecked() == 0) {
+                node.setChecked(false);
+            }else {
+                node.setChecked(true);
+            }
             list.add(node);
         }
 
