@@ -4,6 +4,7 @@ import cn.linye.grus.domain.dtos.RoleDto;
 import cn.linye.grus.domain.entity.generated.RoleEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntityExample;
 import cn.linye.grus.domain.entity.generated.RolePermissionEntity;
+import cn.linye.grus.domain.entity.generated.RolePermissionEntityExample;
 import cn.linye.grus.domain.repository.RoleRepository;
 import cn.linye.grus.domain.repository.generated.PermissionMapper;
 import cn.linye.grus.domain.repository.generated.RoleMapper;
@@ -98,5 +99,17 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq,RoleEntity.class);
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
 
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            RolePermissionEntityExample rolePermissionEntityExample = new RolePermissionEntityExample();
+            rolePermissionEntityExample.createCriteria().andRoleidEqualTo(addRoleReq.getRoleid());
+            rolePermissionMapper.deleteByExample(rolePermissionEntityExample);
+
+
+            sqlSession.commit();
+        }catch (Exception ex){
+            sqlSession.rollback();
+            BizException.throwFail(ex.getMessage(),ex);
+        }
     }
 }
