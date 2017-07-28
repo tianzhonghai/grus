@@ -20,6 +20,7 @@ import cn.linye.grus.infrastructure.RespEnum;
 import cn.linye.grus.infrastructure.exception.BizException;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -56,11 +57,13 @@ public class SystemController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
+    @RequiresPermissions("SysUserMgr")
     @RequestMapping("/userlist")
     public String user(){
         return "system/userlist";
     }
 
+    @RequiresPermissions("SysUserMgr")
     @RequestMapping("/queryuserlist")
     @ResponseBody
     public PagedCollection<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
