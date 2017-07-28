@@ -97,7 +97,8 @@
                 { "data": "createdtime" },
                 { "data": "issystem" },
                 { "data":"roleid", "render":  function ( data, type, row ) {
-                    var html = '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';
+                    var html = '';
+                    if(! row.issystem) {html = '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';}
                     return html;
                 }}
             ]

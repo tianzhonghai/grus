@@ -201,11 +201,11 @@ public class SystemController {
         return "/system/roleedit";
     }
 
-    @RequestMapping("/editrole")
+    @RequestMapping(value = "/editrole", method = RequestMethod.POST)
     @ResponseBody
     public GeneralResp<String> editrole(@RequestBody AddRoleReq addRoleReq){
         GeneralResp<String> generalResp = new GeneralResp<>();
-
+        roleService.editRole(addRoleReq);
         return generalResp;
     }
     @RequestMapping("/getAllPermissionsWithChecked")

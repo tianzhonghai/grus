@@ -96,7 +96,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public void editRole(AddRoleReq addRoleReq) {
+        if(addRoleReq.getRoleid() == null || addRoleReq.getRoleid() == 0) BizException.throwIllegalArgument("角色id不能为空");
+        RoleEntity originalRoleEntity = roleMapper.selectByPrimaryKey(addRoleReq.getRoleid());
+        if(originalRoleEntity == null) BizException.throwFail("角色不存在");
+        if(originalRoleEntity.getIssystem()) BizException.throwFail("系统角色不能修改");
+
         RoleEntity roleEntity = DozerUtils.getDozerMapper().map(addRoleReq,RoleEntity.class);
+        roleEntity.setIssystem(originalRoleEntity.getIssystem());
+        roleEntity.setCreatedtime(originalRoleEntity.getCreatedtime());
+
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -105,7 +113,13 @@ public class RoleServiceImpl implements RoleService {
             rolePermissionEntityExample.createCriteria().andRoleidEqualTo(addRoleReq.getRoleid());
             rolePermissionMapper.deleteByExample(rolePermissionEntityExample);
 
-
+            roleMapper.updateByPrimaryKey(roleEntity);
+            for (int permissionId :addRoleReq.getPermissionIds()) {
+                RolePermissionEntity rolePermissionEntity = new RolePermissionEntity();
+                rolePermissionEntity.setPermissionid(permissionId);
+                rolePermissionEntity.setRoleid(roleEntity.getRoleid());
+                rolePermissionMapper.insert(rolePermissionEntity);
+            }
             sqlSession.commit();
         }catch (Exception ex){
             sqlSession.rollback();

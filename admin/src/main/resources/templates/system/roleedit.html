@@ -89,7 +89,7 @@
             $.each(checdedNodes, function(i,val){
                 ids.push(val.id);
             });
-            var parms = {"rolename": $('#rolename').val(), "roledesc": $('#roledesc').val(),"permissionIds": ids};
+            var parms = {"roleid":$('#roleid').val(), "rolename": $('#rolename').val(), "roledesc": $('#roledesc').val(), "permissionIds": ids};
 
             $.ajax({
                 type:"post",
