@@ -1,4 +1,4 @@
-package cn.linye.grus.domain.dtos;
+package cn.linye.grus.domain.dtos.resp;
 
 /**
  * Created by Tim on 2017/7/26.

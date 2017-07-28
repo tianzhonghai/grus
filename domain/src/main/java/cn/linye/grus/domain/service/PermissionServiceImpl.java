@@ -1,21 +1,18 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.PermissionRespDto;
-import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
+import cn.linye.grus.domain.dtos.resp.PermissionRespDto;
+import cn.linye.grus.domain.dtos.resp.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.entity.PermissionWithCheckedEntity;
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
 import cn.linye.grus.domain.repository.PermissionRepository;
 import cn.linye.grus.domain.repository.generated.PermissionMapper;
-import cn.linye.grus.facade.model.admin.resp.GetAllPermissionsWithCheckedResp;
 import cn.linye.grus.infrastructure.caching.GuavaCache;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
-import com.alibaba.fastjson.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;

@@ -1,6 +1,6 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.UserDto;
+import cn.linye.grus.domain.dtos.common.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;

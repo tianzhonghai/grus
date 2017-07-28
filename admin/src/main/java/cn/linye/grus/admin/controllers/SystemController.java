@@ -1,10 +1,9 @@
 package cn.linye.grus.admin.controllers;
 
-import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
-import cn.linye.grus.domain.dtos.RoleDto;
-import cn.linye.grus.domain.dtos.UserDto;
+import cn.linye.grus.domain.dtos.resp.PermissionWithCheckedRespDto;
+import cn.linye.grus.domain.dtos.common.RoleDto;
+import cn.linye.grus.domain.dtos.common.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
-import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.RoleService;
 import cn.linye.grus.domain.service.UserService;

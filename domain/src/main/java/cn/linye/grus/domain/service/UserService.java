@@ -1,6 +1,6 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.UserDto;
+import cn.linye.grus.domain.dtos.common.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;

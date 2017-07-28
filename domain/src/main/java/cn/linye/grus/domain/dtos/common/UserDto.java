@@ -1,4 +1,4 @@
-package cn.linye.grus.domain.dtos;
+package cn.linye.grus.domain.dtos.common;
 
 import java.util.Date;
 

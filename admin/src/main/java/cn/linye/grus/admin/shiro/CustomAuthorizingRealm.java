@@ -1,9 +1,7 @@
 package cn.linye.grus.admin.shiro;
 
-import cn.linye.grus.domain.dtos.PermissionRespDto;
-import cn.linye.grus.domain.dtos.UserDto;
-import cn.linye.grus.domain.entity.generated.PermissionEntity;
-import cn.linye.grus.domain.entity.generated.UserEntity;
+import cn.linye.grus.domain.dtos.resp.PermissionRespDto;
+import cn.linye.grus.domain.dtos.common.UserDto;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.UserService;
 import cn.linye.grus.infrastructure.utils.SecretUtils;

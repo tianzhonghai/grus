@@ -1,12 +1,11 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.RoleDto;
+import cn.linye.grus.domain.dtos.common.RoleDto;
 import cn.linye.grus.domain.entity.generated.RoleEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntityExample;
 import cn.linye.grus.domain.entity.generated.RolePermissionEntity;
 import cn.linye.grus.domain.entity.generated.RolePermissionEntityExample;
 import cn.linye.grus.domain.repository.RoleRepository;
-import cn.linye.grus.domain.repository.generated.PermissionMapper;
 import cn.linye.grus.domain.repository.generated.RoleMapper;
 import cn.linye.grus.domain.repository.generated.RolePermissionMapper;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;

@@ -1,6 +1,6 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.RoleDto;
+import cn.linye.grus.domain.dtos.common.RoleDto;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.PagedCollection;

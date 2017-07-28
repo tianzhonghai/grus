@@ -1,7 +1,7 @@
 package cn.linye.grus.domain.service;
 
-import cn.linye.grus.domain.dtos.PermissionRespDto;
-import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
+import cn.linye.grus.domain.dtos.resp.PermissionRespDto;
+import cn.linye.grus.domain.dtos.resp.PermissionWithCheckedRespDto;
 
 import java.util.List;
 

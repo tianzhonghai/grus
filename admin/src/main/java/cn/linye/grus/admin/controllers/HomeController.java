@@ -1,7 +1,7 @@
 package cn.linye.grus.admin.controllers;
 
 import cn.linye.grus.admin.shiro.ShiroUser;
-import cn.linye.grus.domain.dtos.PermissionRespDto;
+import cn.linye.grus.domain.dtos.resp.PermissionRespDto;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.facade.model.admin.req.LoginReq;
