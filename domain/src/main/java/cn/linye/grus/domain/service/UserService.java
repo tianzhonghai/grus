@@ -1,7 +1,7 @@
 package cn.linye.grus.domain.service;
 
+import cn.linye.grus.domain.dtos.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
-import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
@@ -12,9 +12,9 @@ import cn.linye.grus.facade.model.admin.resp.QueryUsersResp;
  * Created by Tim on 2017/7/16.
  */
 public interface UserService {
-    UserEntity getUserEntityByAccount(String account);
+    UserDto getUserEntityByAccount(String account);
 
-    UserEntity getUserEntityByUserId(int userId);
+    UserDto getUserEntityByUserId(int userId);
 
     PagedCollection<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq);
 

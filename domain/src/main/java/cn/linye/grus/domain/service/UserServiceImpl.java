@@ -1,5 +1,6 @@
 package cn.linye.grus.domain.service;
 
+import cn.linye.grus.domain.dtos.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;
@@ -40,19 +41,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserEntity getUserEntityByAccount(String account) {
+    public UserDto getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
         userPOExample.createCriteria().andAccountEqualTo(account);
         List<UserEntity> entities = userMapper.selectByExample(userPOExample);
 
         if (entities != null && entities.size() > 0) {
-            return entities.get(0);
+            return DozerUtils.getDozerMapper().map(entities.get(0),UserDto.class);
         }
         return null;
     }
 
-    public UserEntity getUserEntityByUserId(int userId) {
-        return userMapper.selectByPrimaryKey(userId);
+    public UserDto getUserEntityByUserId(int userId) {
+        UserEntity userEntity = userMapper.selectByPrimaryKey(userId);
+        return DozerUtils.getDozerMapper().map(userEntity, UserDto.class);
     }
 
     public PagedCollection<QueryUsersResp> queryUserList(QueryUsersReq queryUserReq) {

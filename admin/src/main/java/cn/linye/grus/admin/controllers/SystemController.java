@@ -2,6 +2,7 @@ package cn.linye.grus.admin.controllers;
 
 import cn.linye.grus.domain.dtos.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.dtos.RoleDto;
+import cn.linye.grus.domain.dtos.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
@@ -109,8 +110,8 @@ public class SystemController {
             BizException.throwIllegalArgument("账号不能为空");
         }
 
-        UserEntity userEntity = userService.getUserEntityByAccount(account);
-        if(userEntity != null){
+        UserDto userDto = userService.getUserEntityByAccount(account);
+        if(userDto != null){
             generalResp.setStatus(RespEnum.FAIL.getValue());
             generalResp.setMessage(account + "已存在");
             return generalResp;
@@ -149,8 +150,8 @@ public class SystemController {
             return generalResp;
         }
 
-        UserEntity userEntity = userService.getUserEntityByAccount(account);
-        if(userEntity != null){
+        UserDto userDto = userService.getUserEntityByAccount(account);
+        if(userDto != null){
             generalResp.setStatus(RespEnum.FAIL.getValue());
             generalResp.setMessage(account + "已存在");
             return generalResp;

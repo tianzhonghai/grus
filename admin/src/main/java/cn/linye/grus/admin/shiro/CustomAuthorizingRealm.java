@@ -1,6 +1,7 @@
 package cn.linye.grus.admin.shiro;
 
 import cn.linye.grus.domain.dtos.PermissionRespDto;
+import cn.linye.grus.domain.dtos.UserDto;
 import cn.linye.grus.domain.entity.generated.PermissionEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.service.PermissionService;
@@ -68,25 +69,25 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken )token;
         String username = (String) token.getPrincipal();
-        UserEntity userEntity = userService.getUserEntityByAccount(username);
+        UserDto userDto = userService.getUserEntityByAccount(username);
         String password = new String((char[]) token.getCredentials());
 
         // 账号不存在
-        if (userEntity == null) {
+        if (userDto == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
         // 密码错误
-        if (!SecretUtils.MD5(password).equals(userEntity.getPassword())) {
+        if (!SecretUtils.MD5(password).equals(userDto.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
         // 账号锁定
-        if (userEntity.getLocked()) {
+        if (userDto.getLocked()) {
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
 
         ShiroUser shiroUser = new ShiroUser();
-        shiroUser.setUserId(userEntity.getUserid());
-        shiroUser.setAccount(userEntity.getAccount());
+        shiroUser.setUserId(userDto.getUserid());
+        shiroUser.setAccount(userDto.getAccount());
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(shiroUser, SecretUtils.MD5(password), getName());
         return info;
     }
