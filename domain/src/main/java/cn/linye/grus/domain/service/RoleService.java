@@ -27,4 +27,6 @@ public interface RoleService {
     RoleDto getRoleById(int roleId);
 
     void editRole(AddRoleReq addRoleReq);
+
+    void deleteRole(int roleId);
 }

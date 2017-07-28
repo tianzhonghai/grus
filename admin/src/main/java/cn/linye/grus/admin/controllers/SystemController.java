@@ -234,4 +234,12 @@ public class SystemController {
 
         return list;
     }
+
+    @RequestMapping("/deleterole")
+    @ResponseBody
+    public GeneralResp<String> deleterole(int roleid){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        roleService.deleteRole(roleid);;
+        return generalResp;
+    }
 }

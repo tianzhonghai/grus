@@ -98,7 +98,10 @@
                 { "data": "issystem" },
                 { "data":"roleid", "render":  function ( data, type, row ) {
                     var html = '';
-                    if(! row.issystem) {html = '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';}
+                    if(! row.issystem) {
+                        html += '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doDelete('+row.roleid+')">删除</a>'
+                    }
                     return html;
                 }}
             ]
@@ -131,10 +134,12 @@
                 content: '/system/editrole?roleid='+roleId
             });
         }
-        function doDelete(userId,locked){
-            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
-                refershGrid();
-            })
+        function doDelete(roleid){
+            if(confirm('确认要删除吗?')) {
+                $.post('/system/deleterole', {"roleid": roleid}, function () {
+                    refershGrid();
+                })
+            }
         }
     </script>
 

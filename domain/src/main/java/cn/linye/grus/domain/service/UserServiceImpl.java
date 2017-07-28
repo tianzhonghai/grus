@@ -105,6 +105,8 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);
+        }finally {
+            sqlSession.close();
         }
     }
 
@@ -126,6 +128,8 @@ public class UserServiceImpl implements UserService {
         }catch (Exception ex){
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);
+        }finally {
+            sqlSession.close();
         }
 
     }

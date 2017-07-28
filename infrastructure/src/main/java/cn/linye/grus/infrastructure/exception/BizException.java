@@ -1,11 +1,15 @@
 package cn.linye.grus.infrastructure.exception;
 
 import cn.linye.grus.infrastructure.RespEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Tim on 2017/7/16.
  */
 public class BizException extends RuntimeException {
+    Logger logger = LoggerFactory.getLogger(BizException.class);
+
     private static final long serialVersionUID = 4418564609919928814L;
     private RespEnum errorCode;
 
@@ -32,6 +36,7 @@ public class BizException extends RuntimeException {
             throw new IllegalArgumentException("errorCode is null");
         }
         this.errorCode = errorCode;
+        logger.error(msg,cause);
     }
 
     public RespEnum getErrorCode() {

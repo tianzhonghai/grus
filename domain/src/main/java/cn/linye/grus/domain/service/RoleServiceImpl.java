@@ -76,6 +76,8 @@ public class RoleServiceImpl implements RoleService {
         } catch (Exception ex) {
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);
+        }finally {
+            sqlSession.close();
         }
     }
 
@@ -124,6 +126,30 @@ public class RoleServiceImpl implements RoleService {
         }catch (Exception ex){
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    public void deleteRole(int roleId) {
+        if(roleId == 0)BizException.throwIllegalArgument("roleid不能为空");
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            RolePermissionEntityExample rolePermissionEntityExample = new RolePermissionEntityExample();
+            rolePermissionEntityExample.createCriteria().andRoleidEqualTo(roleId);
+            rolePermissionMapper.deleteByExample(rolePermissionEntityExample);
+
+            RoleEntityExample roleEntityExample = new RoleEntityExample();
+            roleEntityExample.createCriteria().andRoleidEqualTo(roleId);
+            roleMapper.deleteByExample(roleEntityExample);
+
+            sqlSession.commit();
+        }catch (Exception ex){
+            sqlSession.rollback();
+            BizException.throwFail(ex.getMessage(),ex);
+        }finally {
+            sqlSession.close();
         }
     }
 }
