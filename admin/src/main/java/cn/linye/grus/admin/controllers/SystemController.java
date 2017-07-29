@@ -1,5 +1,6 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.admin.shiro.PermissionCodeDefine;
 import cn.linye.grus.domain.dtos.resp.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.dtos.common.RoleDto;
 import cn.linye.grus.domain.dtos.common.UserDto;
@@ -57,13 +58,13 @@ public class SystemController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
-    @RequiresPermissions("SysUserMgr")
+    @RequiresPermissions(PermissionCodeDefine.SYS_USER_MGR)
     @RequestMapping("/userlist")
-    public String user(){
+    public String userList(){
         return "system/userlist";
     }
 
-    @RequiresPermissions("SysUserMgr")
+    @RequiresPermissions(PermissionCodeDefine.SYS_USER_MGR)
     @RequestMapping("/queryuserlist")
     @ResponseBody
     public PagedCollection<QueryUsersResp> queryUsers(QueryUsersReq QueryUsersReq){
@@ -163,12 +164,13 @@ public class SystemController {
         return generalResp;
     }
 
-    @RequiresPermissions("SysRoleMgr2")
+    @RequiresPermissions(PermissionCodeDefine.SYS_ROLE_MGR)
     @RequestMapping("/rolelist")
     public String role() {
         return "system/rolelist";
     }
 
+    @RequiresPermissions(PermissionCodeDefine.SYS_ROLE_MGR)
     @RequestMapping("/queryrolelist")
     @ResponseBody
     public PagedCollection<QueryRolesResp> queryRoleList(QueryRolesReq queryRolesReq){
