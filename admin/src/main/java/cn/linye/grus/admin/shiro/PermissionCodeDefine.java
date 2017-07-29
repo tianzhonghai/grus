@@ -1,6 +1,7 @@
 package cn.linye.grus.admin.shiro;
 
 /**
+ * 权限码
  * Created by Tim on 2017/7/29.
  */
 public class PermissionCodeDefine {
