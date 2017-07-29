@@ -53,7 +53,7 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
 //                if(! roleSet.contains(roleAndPermissionPO.getRoleId().toString())) {
 //                    roleSet.add(roleAndPermissionPO.getRoleId().toString());
 //                }
-                shiroPermissions.add(dto.getPermissionname());
+                shiroPermissions.add(dto.getPermissioncode());
             }
             //authorizationInfo.setRoles(roleSet);
             authorizationInfo.setStringPermissions(shiroPermissions); //权限集合，基于角色的可以不设置

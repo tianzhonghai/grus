@@ -163,6 +163,7 @@ public class SystemController {
         return generalResp;
     }
 
+    @RequiresPermissions("SysRoleMgr2")
     @RequestMapping("/rolelist")
     public String role() {
         return "system/rolelist";
