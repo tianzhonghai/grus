@@ -151,4 +151,9 @@ public class RoleServiceImpl implements RoleService {
             sqlSession.close();
         }
     }
+
+    public List<RoleDto> getAllRole() {
+        List<RoleEntity> entities = roleMapper.selectByExample(null);
+        return DozerUtils.mapList(entities,RoleDto.class);
+    }
 }

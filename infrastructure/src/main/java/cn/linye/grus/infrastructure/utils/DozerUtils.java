@@ -28,12 +28,14 @@ public class DozerUtils {
 
     public static <From,To> List<To> mapList(List<From> fromList,final Class<To> toClass){
         return Lists.transform(fromList, new Function<From, To>() {
-
             @Override
             public To apply(From from){
-                return DozerUtils.getDozerMapper().map(from,toClass);
+                return getDozerMapper().map(from,toClass);
             }
-
         });
+    }
+
+    public static <From,To> To mapItem(From from, final  Class<To> toClass) {
+        return getDozerMapper().map(from,toClass);
     }
 }

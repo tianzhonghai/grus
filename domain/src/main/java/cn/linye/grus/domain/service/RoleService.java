@@ -5,6 +5,8 @@ import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.PagedCollection;
 
+import java.util.List;
+
 /**
  * 角色服务
  * @Author tianzhonghai
@@ -29,4 +31,6 @@ public interface RoleService {
     void editRole(AddRoleReq addRoleReq);
 
     void deleteRole(int roleId);
+
+    List<RoleDto> getAllRole();
 }

@@ -3,8 +3,10 @@ package cn.linye.grus.facade.model.admin.req;
 import cn.linye.grus.infrastructure.BaseReq;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author tianzhonghai
@@ -23,14 +25,8 @@ public class AddUserReq extends BaseReq {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public AddUserReq setLocked(Boolean locked) {
-        this.locked = locked;
-        return this;
-    }
+    @NotEmpty
+    private List<Integer> roleids;
 
     public Integer getUserid() {
         return userid;
@@ -75,5 +71,22 @@ public class AddUserReq extends BaseReq {
     public AddUserReq setBirthday(Date birthday) {
         this.birthday = birthday;
         return this;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public AddUserReq setLocked(Boolean locked) {
+        this.locked = locked;
+        return this;
+    }
+
+    public List<Integer> getRoleids() {
+        return roleids;
+    }
+
+    public void setRoleids(List<Integer> roleids) {
+        this.roleids = roleids;
     }
 }

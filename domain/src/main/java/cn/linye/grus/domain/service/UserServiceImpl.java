@@ -5,9 +5,11 @@ import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.entity.generated.UserEntity;
 import cn.linye.grus.domain.entity.generated.UserEntityExample;
 import cn.linye.grus.domain.entity.generated.UserProfileEntity;
+import cn.linye.grus.domain.entity.generated.UserRoleEntity;
 import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
 import cn.linye.grus.domain.repository.generated.UserProfileMapper;
+import cn.linye.grus.domain.repository.generated.UserRoleMapper;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.facade.model.admin.req.AddUserReq;
 import cn.linye.grus.facade.model.admin.req.QueryUsersReq;
@@ -31,7 +33,6 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserMapper userMapper;
 
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     public UserDto getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
@@ -103,6 +107,13 @@ public class UserServiceImpl implements UserService {
             int rows = userMapper.insert(userEntity);
             userProfileEntity.setUserid(userEntity.getUserid());
             userProfileMapper.insert(userProfileEntity);
+
+            for (Integer roleid:req.getRoleids()) {
+                UserRoleEntity userRoleEntity = new UserRoleEntity();
+                userRoleEntity.setRoleid(roleid);
+                userRoleEntity.setUserid(req.getUserid());
+                userRoleMapper.insert(userRoleEntity);
+            }
             sqlSession.commit();
         } catch (Exception ex) {
             sqlSession.rollback();

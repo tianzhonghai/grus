@@ -88,7 +88,10 @@ public class SystemController {
     }
 
     @RequestMapping("/adduser")
-    public String addUser(){
+    public String addUser(Model model){
+        //获取角色
+        List<RoleDto> roleDtos = roleService.getAllRole();
+        model.addAttribute("roles",roleDtos);
         return "system/useradd";
     }
 
