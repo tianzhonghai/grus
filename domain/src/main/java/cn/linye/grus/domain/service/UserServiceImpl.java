@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
             for (Integer roleid:req.getRoleids()) {
                 UserRoleEntity userRoleEntity = new UserRoleEntity();
                 userRoleEntity.setRoleid(roleid);
-                userRoleEntity.setUserid(req.getUserid());
+                userRoleEntity.setUserid(userEntity.getUserid());
                 userRoleMapper.insert(userRoleEntity);
             }
             sqlSession.commit();
