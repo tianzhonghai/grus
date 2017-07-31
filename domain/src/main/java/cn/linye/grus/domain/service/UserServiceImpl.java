@@ -2,10 +2,8 @@ package cn.linye.grus.domain.service;
 
 import cn.linye.grus.domain.dtos.common.UserDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
-import cn.linye.grus.domain.entity.generated.UserEntity;
-import cn.linye.grus.domain.entity.generated.UserEntityExample;
-import cn.linye.grus.domain.entity.generated.UserProfileEntity;
-import cn.linye.grus.domain.entity.generated.UserRoleEntity;
+import cn.linye.grus.domain.entity.generated.*;
+import cn.linye.grus.domain.repository.RoleRepository;
 import cn.linye.grus.domain.repository.UserRepository;
 import cn.linye.grus.domain.repository.generated.UserMapper;
 import cn.linye.grus.domain.repository.generated.UserProfileMapper;
@@ -44,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UserDto getUserEntityByAccount(String account) {
         UserEntityExample userPOExample = new UserEntityExample();
@@ -136,8 +137,20 @@ public class UserServiceImpl implements UserService {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
+            UserRoleEntityExample userRoleEntityExample = new UserRoleEntityExample();
+            userRoleEntityExample.createCriteria().andUseridEqualTo(req.getUserid());
+            userRoleMapper.deleteByExample(userRoleEntityExample);
+
             userMapper.updateByPrimaryKeySelective(userEntity);
+
             userProfileMapper.updateByPrimaryKeySelective(userProfileEntity);
+
+            for (int roleid : req.getRoleids()) {
+                UserRoleEntity userRoleEntity = new UserRoleEntity();
+                userRoleEntity.setRoleid(roleid);
+                userRoleEntity.setUserid(userEntity.getUserid());
+                userRoleMapper.insert(userRoleEntity);
+            }
         }catch (Exception ex){
             sqlSession.rollback();
             BizException.throwFail(ex.getMessage(),ex);

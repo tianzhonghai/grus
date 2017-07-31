@@ -1,6 +1,8 @@
 package cn.linye.grus.domain.service;
 
 import cn.linye.grus.domain.dtos.common.RoleDto;
+import cn.linye.grus.domain.dtos.resp.RoleWithCheckedRespDto;
+import cn.linye.grus.domain.entity.RoleWithCheckedEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntity;
 import cn.linye.grus.domain.entity.generated.RoleEntityExample;
 import cn.linye.grus.domain.entity.generated.RolePermissionEntity;
@@ -155,5 +157,11 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleDto> getAllRole() {
         List<RoleEntity> entities = roleMapper.selectByExample(null);
         return DozerUtils.mapList(entities,RoleDto.class);
+    }
+
+    public List<RoleWithCheckedRespDto> getRoleWithChecked(int userId) {
+        List<RoleWithCheckedEntity> roleWithCheckedEntities = roleRepository.getRoleWithCheckedEntities(userId);
+
+        return DozerUtils.mapList(roleWithCheckedEntities, RoleWithCheckedRespDto.class);
     }
 }

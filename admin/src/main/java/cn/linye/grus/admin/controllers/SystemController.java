@@ -4,6 +4,7 @@ import cn.linye.grus.admin.shiro.PermissionCodeDefine;
 import cn.linye.grus.domain.dtos.resp.PermissionWithCheckedRespDto;
 import cn.linye.grus.domain.dtos.common.RoleDto;
 import cn.linye.grus.domain.dtos.common.UserDto;
+import cn.linye.grus.domain.dtos.resp.RoleWithCheckedRespDto;
 import cn.linye.grus.domain.entity.UserWithProfileEntity;
 import cn.linye.grus.domain.service.PermissionService;
 import cn.linye.grus.domain.service.RoleService;
@@ -132,10 +133,14 @@ public class SystemController {
         UserWithProfileEntity userWithProfileEntity = userService.getUserWithProfileEntity(userId);
         AddUserReq addUserReq = DozerUtils.getDozerMapper().map(userWithProfileEntity, AddUserReq.class);
         model.addAttribute("user", addUserReq);
+
+        List<RoleWithCheckedRespDto> roleDtos = roleService.getRoleWithChecked(userId);
+        model.addAttribute("roles",roleDtos);
         return "system/useredit";
     }
 
     @RequestMapping(value = "/edituser", method = RequestMethod.POST)
+    @ResponseBody
     public GeneralResp<String> editUser(AddUserReq addUserReq){
         addUserReq.doValidate();
         GeneralResp<String> generalResp = new GeneralResp<>();

@@ -8,6 +8,11 @@
         <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
         <result column="IsSystem" jdbcType="BIT" property="issystem" />
     </resultMap>
+    <resultMap id="RoleWithCheckedEntityResultMap" type="cn.linye.grus.domain.entity.RoleWithCheckedEntity">
+        <id column="RoleID" jdbcType="INTEGER" property="roleid" />
+        <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
+        <result column="Checked" jdbcType="INTEGER" property="checked" />
+    </resultMap>
     <sql id="Base_Column_List">
         RoleID, RoleName, RoleDesc, CreatedTime, IsSystem
     </sql>
@@ -25,5 +30,9 @@
         <if test="roleName != null">
             WHERE RoleName LIKE CONCAT('%','${roleName}','%' )
         </if>
+    </select>
+    <select id="getRoleWithCheckedEntities" resultMap="RoleWithCheckedEntityResultMap">
+        SELECT A.RoleID,A.RoleName,CASE WHEN B.`ID` IS NULL THEN 0 ELSE 1 END AS Checked
+        FROM `sys_role` A LEFT JOIN `sys_userrole` B ON A.`RoleID` = B.`RoleID` AND B.UserId = #{userId}
     </select>
 </mapper>

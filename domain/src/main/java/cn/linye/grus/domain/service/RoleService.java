@@ -1,6 +1,7 @@
 package cn.linye.grus.domain.service;
 
 import cn.linye.grus.domain.dtos.common.RoleDto;
+import cn.linye.grus.domain.dtos.resp.RoleWithCheckedRespDto;
 import cn.linye.grus.facade.model.admin.req.AddRoleReq;
 import cn.linye.grus.facade.model.admin.req.QueryRolesReq;
 import cn.linye.grus.infrastructure.PagedCollection;
@@ -33,4 +34,6 @@ public interface RoleService {
     void deleteRole(int roleId);
 
     List<RoleDto> getAllRole();
+
+    List<RoleWithCheckedRespDto> getRoleWithChecked(int userId);
 }
