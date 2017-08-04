@@ -1,11 +1,11 @@
-package cn.linye.grus.domain.dtos.common;
+package cn.linye.grus.facade.model.admin.resp;
 
 import java.util.Date;
 
 /**
- * Created by Tim on 2017/7/31.
+ * Created by Tim on 2017/8/4.
  */
-public class DeptDto {
+public class DeptResp {
     private Integer deptid;
     private String deptname;
     private Date createdtime;
