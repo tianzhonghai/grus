@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linye.grus.domain.repository.DeptRepository">
+    <resultMap id="deptResultMap" type="cn.linye.grus.domain.entity.generated.DeptEntity">
+        <id column="DeptID" jdbcType="INTEGER" property="deptid" />
+        <result column="DeptName" jdbcType="VARCHAR" property="deptname" />
+        <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
+        <result column="CreatedBy" jdbcType="VARCHAR" property="createdby" />
+        <result column="LastModifiedTime" jdbcType="TIMESTAMP" property="lastmodifiedtime" />
+        <result column="LastModifiedBy" jdbcType="VARCHAR" property="lastmodifiedby" />
+        <result column="Enabled" jdbcType="BIT" property="enabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        DeptID, DeptName, CreatedTime, CreatedBy, LastModifiedTime, LastModifiedBy, Enabled
+    </sql>
+    <select id="queryDeptEntities"  resultMap="deptResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `bas_dept`
+        <if test="deptName != null">
+            WHERE `deptname` LIKE CONCAT('%','${deptName}','%' )
+        </if>
+        LIMIT #{start},#{limit}
+    </select>
+    <select id="countDeptEntities" resultType="java.lang.Integer">
+        select count(*) from `bas_dept`
+        <if test="deptName != null">
+            WHERE `deptname` LIKE CONCAT('%','${deptName}','%' )
+        </if>
+    </select>
+</mapper>

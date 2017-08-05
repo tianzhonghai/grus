@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Tim on 2017/8/4.
  */
 public interface DeptRepository {
-    List<DeptEntity> queryDeptEntities(@Param("start")int start, @Param("limit") int limit);
+    List<DeptEntity> queryDeptEntities(@Param("deptName") String deptName, @Param("start")int start, @Param("limit") int limit);
 
-    int countDeptEntities();
+    int countDeptEntities(@Param("deptName") String deptName);
 }

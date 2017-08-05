@@ -9,6 +9,30 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-1 control-label">部门名称</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" name="deptname" id="deptname" />
+                                </div>
+                                <label class="col-lg-1 control-label"></label>
+                                <div class="col-lg-3">
+                                </div>
+                                <div class="col-lg-1 control-label"></div>
+                                <div class="col-lg-3">
+                                    <button type="button" id="btnQuery" class="btn btn-primary">查询</button>
+                                    <button type="button" id="btnNew" class="btn btn-success">新增部门</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">部门列表</h3>
                     </div>
@@ -57,23 +81,21 @@
                 }
             },
             "ajax": {
-                "url":"/basic/queryrolelist",
+                "url":"/basic/getdeptlist",
                 "type": "get",
                 "data": function(d){
-                    d.rolename = $('#rolename').val();
+                    d.deptname = $('#deptname').val();
                 }
             },
             "columns": [
-                { "data": "roleid" ,"bSortable": false },
-                { "data": "rolename" },
-                { "data": "roledesc" },
+                { "data": "deptid" ,"bSortable": false },
+                { "data": "deptname" },
                 { "data": "createdtime" },
-                { "data": "issystem" },
-                { "data":"roleid", "render":  function ( data, type, row ) {
+                { "data":"deptid", "render":  function ( data, type, row ) {
                     var html = '';
                     if(! row.issystem) {
-                        html += '<a href="javascript:void(0)" onclick="doEdit('+row.roleid+')">修改</a>';
-                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doDelete('+row.roleid+')">删除</a>'
+                        html += '<a href="javascript:void(0)" onclick="doEdit('+row.deptid+')">修改</a>';
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="doDelete('+row.deptid+')">删除</a>'
                     }
                     return html;
                 }}
