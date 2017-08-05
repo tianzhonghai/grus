@@ -16,10 +16,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 基础数据
@@ -65,7 +62,7 @@ public class BasicController {
 
     @RequestMapping(value = "/adddept", method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResp<String> addDept(AddDeptReq addDeptReq){
+    public GeneralResp<String> addDept(@RequestBody  AddDeptReq addDeptReq){
         addDeptReq.doValidate();
         GeneralResp<String> generalResp = new GeneralResp<>();
         Subject currentUser = SecurityUtils.getSubject();

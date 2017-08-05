@@ -51,6 +51,7 @@ public class DeptServiceImpl implements DeptService {
         DeptEntity deptEntity = DozerUtils.mapItem(addDeptReq, DeptEntity.class);
         deptEntity.setCreatedtime(new Date());
         deptEntity.setLastmodifiedtime(new Date());
+        deptEntity.setEnabled(true);
         deptMapper.insert(deptEntity);
     }
 }
