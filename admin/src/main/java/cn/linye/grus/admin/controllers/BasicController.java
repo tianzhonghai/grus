@@ -9,6 +9,7 @@ import cn.linye.grus.facade.model.admin.req.QueryDeptsReq;
 import cn.linye.grus.facade.model.admin.resp.DeptResp;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
+import cn.linye.grus.infrastructure.exception.BizException;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -65,14 +66,18 @@ public class BasicController {
     @RequestMapping(value = "/adddept", method = RequestMethod.POST)
     @ResponseBody
     public GeneralResp<String> addDept(AddDeptReq addDeptReq){
+        addDeptReq.doValidate();
         GeneralResp<String> generalResp = new GeneralResp<>();
         Subject currentUser = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();
 
         addDeptReq.setCreatedby(shiroUser.getAccount());
         addDeptReq.setLastmodifiedby(shiroUser.getAccount());
-
-        deptService.addDept(addDeptReq);
+        try {
+            deptService.addDept(addDeptReq);
+        }catch (Exception ex){
+            BizException.throwFail(ex.getMessage(), ex);
+        }
         return generalResp;
     }
 }

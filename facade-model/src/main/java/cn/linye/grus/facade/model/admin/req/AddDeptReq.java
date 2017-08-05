@@ -8,17 +8,17 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class AddDeptReq extends BaseReq {
     @NotBlank(message = "部门名称不能为空")
-    private String deptName;
+    private String deptname;
 
     private String createdby;
     private String lastmodifiedby;
 
-    public String getDeptName() {
-        return deptName;
+    public String getDeptname() {
+        return deptname;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public void setDeptname(String deptname) {
+        this.deptname = deptname;
     }
 
     public String getCreatedby() {
