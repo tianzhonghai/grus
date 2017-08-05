@@ -4,6 +4,7 @@ import cn.linye.grus.domain.dtos.common.DeptDto;
 import cn.linye.grus.domain.entity.generated.DeptEntity;
 import cn.linye.grus.domain.repository.DeptRepository;
 import cn.linye.grus.domain.repository.generated.DeptMapper;
+import cn.linye.grus.facade.model.admin.req.AddDeptReq;
 import cn.linye.grus.facade.model.admin.req.QueryDeptsReq;
 import cn.linye.grus.infrastructure.BaseReq;
 import cn.linye.grus.infrastructure.PagedCollection;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,5 +45,12 @@ public class DeptServiceImpl implements DeptService {
 
     public int updateDeptEnabled(int deptId, boolean enabled) {
         return deptRepository.updateDeptEnabled(deptId,enabled);
+    }
+
+    public void addDept(AddDeptReq addDeptReq) {
+        DeptEntity deptEntity = DozerUtils.mapItem(addDeptReq, DeptEntity.class);
+        deptEntity.setCreatedtime(new Date());
+        deptEntity.setLastmodifiedtime(new Date());
+        deptMapper.insert(deptEntity);
     }
 }

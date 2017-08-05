@@ -1,5 +1,6 @@
 package cn.linye.grus.admin.controllers;
 
+import cn.linye.grus.admin.shiro.ShiroUser;
 import cn.linye.grus.domain.dtos.common.DeptDto;
 import cn.linye.grus.domain.repository.DeptRepository;
 import cn.linye.grus.domain.service.DeptService;
@@ -9,6 +10,8 @@ import cn.linye.grus.facade.model.admin.resp.DeptResp;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
@@ -63,7 +66,13 @@ public class BasicController {
     @ResponseBody
     public GeneralResp<String> addDept(AddDeptReq addDeptReq){
         GeneralResp<String> generalResp = new GeneralResp<>();
+        Subject currentUser = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();
 
+        addDeptReq.setCreatedby(shiroUser.getAccount());
+        addDeptReq.setLastmodifiedby(shiroUser.getAccount());
+
+        deptService.addDept(addDeptReq);
         return generalResp;
     }
 }
