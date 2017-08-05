@@ -130,8 +130,13 @@
         function refershGrid(){
             table.ajax.reload();
         }
-        function doEnable(deptId,enabled){
-            $.post('/basic/enabledept',{"deptid": deptId, "enabled": enabled },function(){
+        function doLock(userId,locked){
+            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
+                refershGrid();
+            })
+        }
+        function doEnable(userId,enabled){
+            $.post('/system/enableuser',{"userid": userId, "enabled": enabled },function(){
                 refershGrid();
             })
         }

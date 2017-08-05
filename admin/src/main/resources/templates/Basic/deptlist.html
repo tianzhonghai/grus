@@ -116,13 +116,17 @@
         function refershGrid(){
             table.ajax.reload();
         }
-
+        function doEnable(deptId,enabled){
+            $.post('/basic/enabledept',{"deptid": deptId, "enabled": enabled },function(){
+                refershGrid();
+            })
+        }
         $('#btnNew').click(function(){
             layer.open({
                 type: 2,
                 area: ['800px', '500px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/system/addrole'
+                content: '/basic/adddept'
             });
         })
 
@@ -134,13 +138,7 @@
                 content: '/system/editrole?roleid='+roleId
             });
         }
-        function doDelete(roleid){
-            if(confirm('确认要删除吗?')) {
-                $.post('/system/deleterole', {"roleid": roleid}, function () {
-                    refershGrid();
-                })
-            }
-        }
+
     </script>
 
 </th:block>
