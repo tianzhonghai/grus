@@ -1,5 +1,7 @@
 package cn.linye.grus.facade.model.admin.resp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Date;
 public class DeptResp {
     private Integer deptid;
     private String deptname;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdtime;
     private String createdby;
     private Date lastmodifiedtime;
