@@ -123,7 +123,6 @@
         };
 
         var table = $('#tbUserList').DataTable(tableSetting);
-
         $('#btnQuery').click(function(){
             refershGrid();
         })
@@ -131,13 +130,8 @@
         function refershGrid(){
             table.ajax.reload();
         }
-        function doLock(userId,locked){
-            $.post('/system/lockuser',{"userid": userId, "locked": locked },function(){
-                refershGrid();
-            })
-        }
-        function doEnable(userId,enabled){
-            $.post('/system/enableuser',{"userid": userId, "enabled": enabled },function(){
+        function doEnable(deptId,enabled){
+            $.post('/basic/enabledept',{"deptid": deptId, "enabled": enabled },function(){
                 refershGrid();
             })
         }

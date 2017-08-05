@@ -12,4 +12,6 @@ public interface DeptRepository {
     List<DeptEntity> queryDeptEntities(@Param("deptName") String deptName, @Param("start")int start, @Param("limit") int limit);
 
     int countDeptEntities(@Param("deptName") String deptName);
+
+    int updateDeptEnabled(@Param("deptId") int deptId, @Param("enabled") boolean enabled);
 }

@@ -40,4 +40,8 @@ public class DeptServiceImpl implements DeptService {
         result.setRecordsTotal(count);
         return result;
     }
+
+    public int updateDeptEnabled(int deptId, boolean enabled) {
+        return deptRepository.updateDeptEnabled(deptId,enabled);
+    }
 }

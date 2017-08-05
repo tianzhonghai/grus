@@ -28,4 +28,12 @@
             WHERE `deptname` LIKE CONCAT('%','${deptName}','%' )
         </if>
     </select>
+
+    <update id="updateDeptEnabled">
+        update bas_dept
+        <set>
+            `Enabled` = #{enabled,jdbcType=BIT},
+        </set>
+        where DeptID = #{deptId,jdbcType=INTEGER}
+    </update>
 </mapper>

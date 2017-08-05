@@ -23,7 +23,7 @@
                         var allTopMenus = result.data.asLinq().where(function(){return this.parentPermissionId==0}).toArray();
                         var str = '';
                         for(var i = 0 ; i < allTopMenus.length; i ++) {
-                             str = '<li class="treeview">'
+                             str += '<li class="treeview">'
                                     +'<a href="#">'
                                     +'<i class="fa fa-link"></i> <span>'+allTopMenus[i].permissionname+'</span>'
                                     +'<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>'

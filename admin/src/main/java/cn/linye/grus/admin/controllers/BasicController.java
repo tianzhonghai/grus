@@ -5,12 +5,14 @@ import cn.linye.grus.domain.repository.DeptRepository;
 import cn.linye.grus.domain.service.DeptService;
 import cn.linye.grus.facade.model.admin.req.QueryDeptsReq;
 import cn.linye.grus.facade.model.admin.resp.DeptResp;
+import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.infrastructure.utils.DozerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -40,5 +42,13 @@ public class BasicController {
         pagedCollection.setData(DozerUtils.mapList(dtoPagedCollection.getData(),DeptResp.class));
 
         return pagedCollection;
+    }
+
+    @RequestMapping("/enabledept")
+    @ResponseBody
+    public GeneralResp<String> enableDept(@RequestParam("deptid") int deptId, @RequestParam("enabled") boolean enabled){
+        GeneralResp<String> resp = new GeneralResp<>();
+        deptService.updateDeptEnabled(deptId,enabled);
+        return resp.success();
     }
 }
