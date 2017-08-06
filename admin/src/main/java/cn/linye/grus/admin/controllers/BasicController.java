@@ -16,6 +16,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -65,9 +66,8 @@ public class BasicController {
     public GeneralResp<String> addDept(@RequestBody  AddDeptReq addDeptReq){
         addDeptReq.doValidate();
         GeneralResp<String> generalResp = new GeneralResp<>();
-        Subject currentUser = SecurityUtils.getSubject();
-        ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();
 
+        ShiroUser shiroUser = getCurrentUser();
         addDeptReq.setCreatedby(shiroUser.getAccount());
         addDeptReq.setLastmodifiedby(shiroUser.getAccount());
         try {
@@ -76,5 +76,32 @@ public class BasicController {
             BizException.throwFail(ex.getMessage(), ex);
         }
         return generalResp;
+    }
+
+    @RequestMapping("/editdept")
+    public String editDept(@RequestParam("deptid") int deptid, Model model){
+        DeptDto dto = deptService.getDept(deptid);
+        model.addAttribute("dept", dto);
+        return "basic/deptedit";
+    }
+
+    @RequestMapping(value = "/editdept", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResp<String> editDept(@RequestBody AddDeptReq addDeptReq){
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        if(addDeptReq.getDeptid() == null || addDeptReq.getDeptid() == 0){
+            return  generalResp.fail();
+        }
+
+        ShiroUser shiroUser = getCurrentUser();
+        addDeptReq.setLastmodifiedby(shiroUser.getAccount());
+        deptService.editDept(addDeptReq);
+        return generalResp.success();
+    }
+
+    private ShiroUser getCurrentUser(){
+        Subject currentUser = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();
+        return shiroUser;
     }
 }

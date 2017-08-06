@@ -130,12 +130,12 @@
             });
         })
 
-        function doEdit(roleId){
+        function doEdit(deptid){
             layer.open({
                 type: 2,
                 area: ['800px', '500px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/system/editrole?roleid='+roleId
+                content: '/basic/editdept?deptid='+deptid
             });
         }
 

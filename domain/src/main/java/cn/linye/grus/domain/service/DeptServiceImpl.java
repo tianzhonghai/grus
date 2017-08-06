@@ -54,4 +54,20 @@ public class DeptServiceImpl implements DeptService {
         deptEntity.setEnabled(true);
         deptMapper.insert(deptEntity);
     }
+
+    public DeptDto getDept(int deptId) {
+        DeptEntity deptEntity = deptMapper.selectByPrimaryKey(deptId);
+        return DozerUtils.mapItem(deptEntity, DeptDto.class);
+    }
+
+    public void editDept(AddDeptReq addDeptReq) {
+        DeptEntity oldEntity = deptMapper.selectByPrimaryKey(addDeptReq.getDeptid());
+        DeptEntity deptEntity = DozerUtils.mapItem(addDeptReq, DeptEntity.class);
+        deptEntity.setCreatedby(oldEntity.getCreatedby());
+        deptEntity.setCreatedtime(oldEntity.getCreatedtime());
+        deptEntity.setLastmodifiedtime(new Date());
+        deptEntity.setEnabled(true);
+
+        deptMapper.updateByPrimaryKey(deptEntity);
+    }
 }

@@ -15,4 +15,8 @@ public interface DeptService {
     int updateDeptEnabled(int deptId, boolean enabled);
 
     void addDept(AddDeptReq addDeptReq);
+
+    DeptDto getDept(int deptId);
+
+    void editDept(AddDeptReq addDeptReq);
 }
