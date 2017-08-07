@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linye.grus.domain.repository.MeetingRoomRepository">
+    <resultMap id="BaseResultMap" type="cn.linye.grus.domain.entity.generated.MeetingRoomEntity">
+        <id column="MeetingRoomID" jdbcType="INTEGER" property="meetingroomid" />
+        <result column="RoomName" jdbcType="VARCHAR" property="roomname" />
+        <result column="CreatedTime" jdbcType="TIMESTAMP" property="createdtime" />
+        <result column="CreatedBy" jdbcType="VARCHAR" property="createdby" />
+        <result column="LastModifiedTime" jdbcType="TIMESTAMP" property="lastmodifiedtime" />
+        <result column="LastModifiedBy" jdbcType="VARCHAR" property="lastmodifiedby" />
+        <result column="Enabled" jdbcType="BIT" property="enabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+         MeetingRoomID, RoomName, CreatedTime, CreatedBy, LastModifiedTime, LastModifiedBy,Enabled
+    </sql>
+    <select id="queryMeetingRoomEntities"  resultMap="deptResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `bas_meetingroom`
+        <if test="roomName != null">
+            WHERE `RoomName` LIKE CONCAT('%','${roomName}','%' )
+        </if>
+        LIMIT #{start},#{limit}
+    </select>
+    <select id="countMeetingRoomEntities" resultType="java.lang.Integer">
+        select count(*) from `bas_meetingroom`
+        <if test="roomName != null">
+            WHERE `RoomName` LIKE CONCAT('%','${roomName}','%' )
+        </if>
+    </select>
+
+    <update id="updateMeetingRoomEnabled">
+        update bas_meetingroom
+        <set>
+            `Enabled` = #{enabled,jdbcType=BIT},
+        </set>
+        where MeetingRoomID = #{meetingRoomID,jdbcType=INTEGER}
+    </update>
+</mapper>
