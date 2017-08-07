@@ -13,7 +13,7 @@
     <sql id="Base_Column_List">
          MeetingRoomID, RoomName, CreatedTime, CreatedBy, LastModifiedTime, LastModifiedBy,Enabled
     </sql>
-    <select id="queryMeetingRoomEntities"  resultMap="deptResultMap">
+    <select id="queryMeetingRoomEntities"  resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM `bas_meetingroom`
