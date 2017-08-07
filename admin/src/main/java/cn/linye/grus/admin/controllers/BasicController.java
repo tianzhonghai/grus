@@ -99,6 +99,11 @@ public class BasicController {
         return generalResp.success();
     }
 
+    @RequestMapping("/meetingroomlist")
+    public String meetingRoomList(){
+        return "basic/meetingroomlist";
+    }
+
     private ShiroUser getCurrentUser(){
         Subject currentUser = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();
