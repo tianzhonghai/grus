@@ -11,11 +11,11 @@ import cn.linye.grus.infrastructure.PagedCollection;
 public interface MeetingRoomService {
     PagedCollection<MeetingRoomDto> queryMeetingRoomList(QueryMeetingRoomReq queryMeetingRoomReq);
 
-    int updateMeetingRoomEnabled(int deptId, boolean enabled);
+    int updateMeetingRoomEnabled(int meetingRoomId, boolean enabled);
 
     void addMeetingRoom(AddMeetingRoomReq addMeetingRoomReq);
 
-    MeetingRoomDto getMeetingRoom(int deptId);
+    MeetingRoomDto getMeetingRoom(int meetingRoomId);
 
     void editMeetingRoom(AddMeetingRoomReq addMeetingRoomReq);
 }

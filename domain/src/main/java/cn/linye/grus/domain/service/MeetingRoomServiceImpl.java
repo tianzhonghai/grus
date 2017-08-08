@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,8 +43,8 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
         return result;
     }
 
-    public int updateMeetingRoomEnabled(int deptId, boolean enabled) {
-        return 0;
+    public int updateMeetingRoomEnabled(int meetingRoomId, boolean enabled) {
+        return meetingRoomRepository.updateMeetingRoomEnabled(meetingRoomId,enabled);
     }
 
     public void addMeetingRoom(AddMeetingRoomReq addMeetingRoomReq) {
@@ -52,11 +53,19 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
         meetingRoomMapper.insert(meetingRoomEntity);
     }
 
-    public MeetingRoomDto getMeetingRoom(int deptId) {
-        return null;
+    public MeetingRoomDto getMeetingRoom(int meetingRoomId) {
+        MeetingRoomEntity entity = meetingRoomMapper.selectByPrimaryKey(meetingRoomId);
+        return DozerUtils.mapItem(entity, MeetingRoomDto.class);
     }
 
     public void editMeetingRoom(AddMeetingRoomReq addMeetingRoomReq) {
+        MeetingRoomEntity oldEntity = meetingRoomMapper.selectByPrimaryKey(addMeetingRoomReq.getMeetingroomid());
+        MeetingRoomEntity deptEntity = DozerUtils.mapItem(addMeetingRoomReq, MeetingRoomEntity.class);
+        deptEntity.setCreatedby(oldEntity.getCreatedby());
+        deptEntity.setCreatedtime(oldEntity.getCreatedtime());
+        deptEntity.setLastmodifiedtime(new Date());
+        deptEntity.setEnabled(true);
 
+        meetingRoomMapper.updateByPrimaryKey(deptEntity);
     }
 }

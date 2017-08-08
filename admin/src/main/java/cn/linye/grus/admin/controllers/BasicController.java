@@ -125,7 +125,6 @@ public class BasicController {
         return pagedCollection;
     }
 
-
     @RequestMapping("/addmeetingroom")
     public String addMeetingRoom(){
         return "basic/addmeetingroom";
@@ -146,6 +145,27 @@ public class BasicController {
             BizException.throwFail(ex.getMessage(), ex);
         }
         return generalResp;
+    }
+
+    @RequestMapping("/editmeetingroom")
+    public String editMeetingRoom(@RequestParam("meetingroomid") int meetingRoomId,Model model) {
+        MeetingRoomDto dto = meetingRoomService.getMeetingRoom(meetingRoomId);
+        model.addAttribute("mr", dto);
+        return "basic/editmeetingroom";
+    }
+
+    @RequestMapping(value = "/editmeetingroom", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResp<String> editMeetingRoom(@RequestBody AddMeetingRoomReq addMeetingRoomReq) {
+        GeneralResp<String> generalResp = new GeneralResp<>();
+        if(addMeetingRoomReq.getMeetingroomid() == null || addMeetingRoomReq.getMeetingroomid() == 0){
+            return  generalResp.fail();
+        }
+
+        ShiroUser shiroUser = getCurrentUser();
+        addMeetingRoomReq.setLastmodifiedby(shiroUser.getAccount());
+        meetingRoomService.editMeetingRoom(addMeetingRoomReq);
+        return generalResp.success();
     }
 
     private ShiroUser getCurrentUser(){
