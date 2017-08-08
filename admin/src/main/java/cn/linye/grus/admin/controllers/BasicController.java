@@ -2,11 +2,15 @@ package cn.linye.grus.admin.controllers;
 
 import cn.linye.grus.admin.shiro.ShiroUser;
 import cn.linye.grus.domain.dtos.common.DeptDto;
+import cn.linye.grus.domain.dtos.common.MeetingRoomDto;
 import cn.linye.grus.domain.repository.DeptRepository;
 import cn.linye.grus.domain.service.DeptService;
+import cn.linye.grus.domain.service.MeetingRoomService;
 import cn.linye.grus.facade.model.admin.req.AddDeptReq;
 import cn.linye.grus.facade.model.admin.req.QueryDeptsReq;
+import cn.linye.grus.facade.model.admin.req.QueryMeetingRoomReq;
 import cn.linye.grus.facade.model.admin.resp.DeptResp;
+import cn.linye.grus.facade.model.admin.resp.MeetingRoomResp;
 import cn.linye.grus.infrastructure.GeneralResp;
 import cn.linye.grus.infrastructure.PagedCollection;
 import cn.linye.grus.infrastructure.exception.BizException;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.*;
 public class BasicController {
     @Autowired
     private DeptService deptService;
+    @Autowired
+    private MeetingRoomService meetingRoomService;
 
     @RequestMapping("/deptlist")
     public String deptList(){
@@ -102,6 +108,26 @@ public class BasicController {
     @RequestMapping("/meetingroomlist")
     public String meetingRoomList(){
         return "basic/meetingroomlist";
+    }
+
+    @RequestMapping("/getmeetingroomlist")
+    @ResponseBody
+    public PagedCollection<MeetingRoomResp> getMeetingRoomList(QueryMeetingRoomReq queryMeetingRoomReq){
+        PagedCollection<MeetingRoomResp> pagedCollection = new PagedCollection<>();
+        PagedCollection<MeetingRoomDto> dtoPagedCollection = meetingRoomService.queryMeetingRoomList(queryMeetingRoomReq);
+
+        pagedCollection.setDraw(dtoPagedCollection.getDraw());
+        pagedCollection.setRecordsFiltered(dtoPagedCollection.getRecordsFiltered());
+        pagedCollection.setRecordsTotal(dtoPagedCollection.getRecordsTotal());
+        pagedCollection.setData(DozerUtils.mapList(dtoPagedCollection.getData(),MeetingRoomResp.class));
+
+        return pagedCollection;
+    }
+
+
+    @RequestMapping("/addmeetingroom")
+    public String addMeetingRoom(){
+        return "basic/addmeetingroom";
     }
 
     private ShiroUser getCurrentUser(){
