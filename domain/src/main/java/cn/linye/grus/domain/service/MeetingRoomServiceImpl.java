@@ -47,7 +47,9 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
     }
 
     public void addMeetingRoom(AddMeetingRoomReq addMeetingRoomReq) {
-
+        MeetingRoomEntity meetingRoomEntity = DozerUtils.mapItem(addMeetingRoomReq,MeetingRoomEntity.class);
+        meetingRoomEntity.setEnabled(true);
+        meetingRoomMapper.insert(meetingRoomEntity);
     }
 
     public MeetingRoomDto getMeetingRoom(int deptId) {

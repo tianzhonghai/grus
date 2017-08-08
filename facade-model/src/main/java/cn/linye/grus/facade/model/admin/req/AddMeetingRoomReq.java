@@ -14,6 +14,8 @@ public class AddMeetingRoomReq extends BaseReq {
     private String roomname;
     private Date lastmodifiedtime;
     private String lastmodifiedby;
+    private Date createdtime;
+    private String createdby;
 
     public Integer getMeetingroomid() {
         return meetingroomid;
@@ -45,5 +47,21 @@ public class AddMeetingRoomReq extends BaseReq {
 
     public void setLastmodifiedby(String lastmodifiedby) {
         this.lastmodifiedby = lastmodifiedby;
+    }
+
+    public Date getCreatedtime() {
+        return createdtime;
+    }
+
+    public void setCreatedtime(Date createdtime) {
+        this.createdtime = createdtime;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
     }
 }

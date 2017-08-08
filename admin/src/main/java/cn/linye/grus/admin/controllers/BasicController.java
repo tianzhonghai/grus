@@ -7,6 +7,7 @@ import cn.linye.grus.domain.repository.DeptRepository;
 import cn.linye.grus.domain.service.DeptService;
 import cn.linye.grus.domain.service.MeetingRoomService;
 import cn.linye.grus.facade.model.admin.req.AddDeptReq;
+import cn.linye.grus.facade.model.admin.req.AddMeetingRoomReq;
 import cn.linye.grus.facade.model.admin.req.QueryDeptsReq;
 import cn.linye.grus.facade.model.admin.req.QueryMeetingRoomReq;
 import cn.linye.grus.facade.model.admin.resp.DeptResp;
@@ -128,6 +129,23 @@ public class BasicController {
     @RequestMapping("/addmeetingroom")
     public String addMeetingRoom(){
         return "basic/addmeetingroom";
+    }
+
+    @RequestMapping(value = "/addmeetingroom", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResp<String> addMeetingRoom(@RequestBody AddMeetingRoomReq addMeetingRoomReq){
+        addMeetingRoomReq.doValidate();
+        GeneralResp<String> generalResp = new GeneralResp<>();
+
+        ShiroUser shiroUser = getCurrentUser();
+        addMeetingRoomReq.setCreatedby(shiroUser.getAccount());
+        addMeetingRoomReq.setLastmodifiedby(shiroUser.getAccount());
+        try {
+            meetingRoomService.addMeetingRoom(addMeetingRoomReq);
+        }catch (Exception ex){
+            BizException.throwFail(ex.getMessage(), ex);
+        }
+        return generalResp;
     }
 
     private ShiroUser getCurrentUser(){
