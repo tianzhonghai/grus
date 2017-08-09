@@ -168,6 +168,14 @@ public class BasicController {
         return generalResp.success();
     }
 
+    @RequestMapping("/enablemeetingroom")
+    @ResponseBody
+    public GeneralResp<String> enableMeetRoom(@RequestParam("roomid") int roomId, @RequestParam("enabled") boolean enabled){
+        GeneralResp<String> resp = new GeneralResp<>();
+        meetingRoomService.updateMeetingRoomEnabled(roomId, enabled);
+        return resp.success();
+    }
+
     private ShiroUser getCurrentUser(){
         Subject currentUser = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser) currentUser.getPrincipal();

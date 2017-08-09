@@ -116,8 +116,8 @@
         function refershGrid(){
             table.ajax.reload();
         }
-        function doEnable(deptId,enabled){
-            $.post('/basic/enabledept',{"deptid": deptId, "enabled": enabled },function(){
+        function doEnable(roomid,enabled){
+            $.post('/basic/enablemeetingroom',{"roomid": roomid, "enabled": enabled },function(){
                 refershGrid();
             })
         }
