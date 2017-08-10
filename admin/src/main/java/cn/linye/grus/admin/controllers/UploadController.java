@@ -52,8 +52,7 @@ public class UploadController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         System.out.println(request.getParameter("member"));
         if (!file.isEmpty()) {
             try {
