@@ -25,11 +25,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Controller
 @RequestMapping("/upload/")
 public class UploadController {
-    public static final String ROOT_DIR = "uploads";
+    public static final String ROOT_DIR = "/uploads";
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET, value = "/upload")
     public String provideUploadInfo(Model model) throws IOException {
         model.addAttribute("files", Files.walk(Paths.get(ROOT_DIR))
                 .filter(path -> !path.equals(Paths.get(ROOT_DIR)))
@@ -40,7 +40,7 @@ public class UploadController {
     }
 
     //显示图片的方法关键 匹配路径像 localhost:8080/b7c76eb3-5a67-4d41-ae5c-1642af3f8746.png
-    @RequestMapping(method = RequestMethod.GET, value = "/{filename:.+}")
+    @RequestMapping(method = RequestMethod.GET, value = "/getfile/{filename:.+}")
     @ResponseBody
     public ResponseEntity<?> getFile(@PathVariable String filename) {
 
@@ -51,7 +51,7 @@ public class UploadController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/")
+    @RequestMapping(method = RequestMethod.POST, value = "/doupload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         System.out.println(request.getParameter("member"));
         if (!file.isEmpty()) {
